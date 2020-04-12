@@ -23,6 +23,7 @@ const stateSlices = {
     anotherTest: Substate.add('anotherTest', {foo: 'bar'})
 }
 
+// Set up some dispatchable actions
 const actions = {
     onButtonClick: Substate.createAction(
         stateSlices.test,
@@ -32,6 +33,7 @@ const actions = {
     )
 }
 
+// Use it like you would `useDispatch` or `useState`
 const Example = () => {
     const [test, dispatch] = useSubstate('test')
     render (
@@ -43,6 +45,9 @@ const Example = () => {
     )
 }
 ```
+
+## Peer Dependencies
+This module has peer dependencies on `react`, `react-dom`, and `immer`.
 
 ## License
 

@@ -1,4 +1,7 @@
 src/
+*.md
+
 .eslintrc.json
 package-lock.json
-*.md
+tsconfig.json
+webpack.config.json
