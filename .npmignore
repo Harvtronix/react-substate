@@ -4,4 +4,4 @@ src/
 .eslintrc.json
 package-lock.json
 tsconfig.json
-webpack.config.json
+webpack.config.js
