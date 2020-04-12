@@ -1,0 +1,54 @@
+{
+  "name": "react-substate",
+  "author": "Harvtronix",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": false,
+  "description": "Blazing-fast, centralized state management with auto-guaranteed, immutable state changes",
+  "keywords": [
+    "react",
+    "state",
+    "immer",
+    "hooks",
+    "redux"
+  ],
+  "bugs": {
+    "url": "https://github.com/Harvtronix/react-substate/issues"
+  },
+  "homepage": "https://github.com/Harvtronix/react-substate#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Harvtronix/react-substate.git"
+  },
+  "module": "index.js",
+  "source": "src/index.ts",
+  "scripts": {
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.32",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "immer": "^6.0.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "peerDependencies": {
+    "immer": "^6.0",
+    "react": "^16.13",
+    "react-dom": "^16.13"
+  }
+}
