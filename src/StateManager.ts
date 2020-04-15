@@ -3,14 +3,16 @@ import produce from 'immer'
 import { GlobalState, Actions, ActionKey } from './Substate'
 
 let actionIdCounter: ActionKey = 0
+let sliceKeyCounter: keyof GlobalState = 0
 
 const globalState: GlobalState = {}
 const actions: Actions = {}
 
-function addAction (
-    sliceKey: keyof GlobalState,
-    stateModifier: Function
-): ActionKey {
+function addAction (sliceKey: keyof GlobalState, stateModifier: Function): ActionKey {
+    if (!hasSlice(sliceKey)) {
+        throw new Error(`Slice key ${sliceKey} not registered`)
+    }
+
     const actionId = actionIdCounter++
 
     actions[actionId] = {
@@ -21,11 +23,15 @@ function addAction (
     return actionId
 }
 
-function addSlice (sliceKey: keyof GlobalState, initialSliceData: any): void {
+function addSlice (initialSliceData: any): keyof GlobalState {
+    const sliceKey = sliceKeyCounter++
+
     globalState[sliceKey] = {
         listeners: [],
         state: initialSliceData
     }
+
+    return sliceKey
 }
 
 function dispatch (actionName: keyof Actions, payload: any): void {

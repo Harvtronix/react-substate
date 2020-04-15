@@ -19,8 +19,8 @@ import Substate, { useSubstate } from 'react-substate'
 
 // Set up some state slices
 const stateSlices = {
-    test: Substate.add('test', {field1: 'the state'}),
-    anotherTest: Substate.add('anotherTest', {foo: 'bar'})
+    test: Substate.add({field1: 'the state'}),
+    anotherTest: Substate.add({foo: 'bar'})
 }
 
 // Set up some dispatchable actions
@@ -28,22 +28,25 @@ const actions = {
     onButtonClick: Substate.createAction(
         stateSlices.test,
         (draft, payload) => {
-            draft.field1 = payload // "the new state"
+            draft.field1 = payload // Will become "the new state"
         }
     )
 }
 
 // Use it like you would `useDispatch` or `useState`
-const Example = () => {
-    const [test, dispatch] = useSubstate('test')
-    render (
+const App = () => {
+    const [test, dispatch] = useSubstate(stateSlices.test)
+    return (
         <button
-            onClick={() => (dispatch(actions.onButtonClick, 'the new state')}
+            onClick={() => (dispatch(actions.onButtonClick, 'the new state'))}
         >
-            {test.field1}
+        {test.field1}
         </button>
     )
 }
+
+export default App
+
 ```
 
 ## Peer Dependencies

@@ -9,7 +9,7 @@ interface StateSlice {
 
 /* exported GlobalState */
 interface GlobalState {
-    [key: string]: StateSlice
+    [key: number]: StateSlice
 }
 
 interface Actions {
@@ -23,18 +23,13 @@ interface ActionEntry {
 
 type ActionKey = keyof Actions
 
-function add (sliceKey: keyof GlobalState, initialSliceData: object): void {
-    if (StateManager.hasSlice(sliceKey)) {
-        throw new Error(`Slice key "${sliceKey}" already exists`)
-    }
+function add (initialSliceData: object): keyof GlobalState {
+    const sliceKey = StateManager.addSlice(initialSliceData)
 
-    StateManager.addSlice(sliceKey, initialSliceData)
+    return sliceKey
 }
 
-function createAction (
-    sliceKey: keyof GlobalState,
-    stateModifier: Function
-): ActionKey {
+function createAction (sliceKey: keyof GlobalState, stateModifier: Function): ActionKey {
     const actionId = StateManager.addAction(sliceKey, stateModifier)
 
     return actionId
