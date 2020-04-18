@@ -1,27 +1,27 @@
 import { useState, useEffect } from 'react'
 
-import { GlobalState } from './Substate'
+import { GlobalState } from './Interfaces'
 import StateManager from './StateManager'
 
-function useSubstate (sliceKey: keyof GlobalState): Array<object> {
-    if (!StateManager.hasSlice(sliceKey)) {
-        throw new Error('No slice found with key ' + sliceKey)
+function useSubstate (substateKey: keyof GlobalState): Array<object> {
+    if (!StateManager.hasSubstate(substateKey)) {
+        throw new Error('No substate found with key ' + substateKey)
     }
 
     const [, setState] = useState()
 
     useEffect(() => {
-        console.log('Registering listener for ' + sliceKey)
-        StateManager.registerListener(sliceKey, setState)
+        console.log('Registering listener for ' + substateKey)
+        StateManager.registerListener(substateKey, setState)
 
         return () => {
-            console.log('Unregistering listener for ' + sliceKey)
-            StateManager.unregisterListener(sliceKey, setState)
+            console.log('Unregistering listener for ' + substateKey)
+            StateManager.unregisterListener(substateKey, setState)
         }
-    }, [sliceKey, setState])
+    }, [substateKey, setState])
 
     return [
-        StateManager.getSlice(sliceKey),
+        StateManager.getSubstate(substateKey),
         StateManager.dispatch
     ]
 }

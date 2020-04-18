@@ -2,7 +2,9 @@
 
 > Blazing-fast, centralized state management with auto-guaranteed, immutable state changes
 
-[![NPM](https://img.shields.io/npm/v/react-substate.svg)](https://www.npmjs.com/package/react-substate) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-substate.svg)](https://www.npmjs.com/package/react-substate)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/l/react-substate?color=orange)](https://github.com/Harvtronix/react-substate/blob/master/LICENSE)
 
 ## Install
 
@@ -17,36 +19,35 @@ import React from 'react'
 
 import Substate, { useSubstate } from 'react-substate'
 
-// Set up some state slices
-const stateSlices = {
-    test: Substate.add({field1: 'the state'}),
-    anotherTest: Substate.add({foo: 'bar'})
+// Set up some sub-states
+const substates = {
+    test: Substate.create({field1: 'the state'}),
+    anotherTest: Substate.create({foo: 'bar'})
 }
 
 // Set up some dispatchable actions
 const actions = {
     onButtonClick: Substate.createAction(
-        stateSlices.test,
+        substates.test,
         (draft, payload) => {
             draft.field1 = payload // Will become "the new state"
         }
     )
 }
 
-// Use it like you would `useDispatch` or `useState`
+// Use it like you would `useReducer` or `useState`
 const App = () => {
-    const [test, dispatch] = useSubstate(stateSlices.test)
+    const [test, dispatch] = useSubstate(substates.test)
     return (
         <button
             onClick={() => (dispatch(actions.onButtonClick, 'the new state'))}
         >
-        {test.field1}
+            {test.field1}
         </button>
     )
 }
 
 export default App
-
 ```
 
 ## Peer Dependencies

@@ -1,81 +1,83 @@
 import produce from 'immer'
 
-import { GlobalState, Actions, ActionKey } from './Substate'
+import {
+    GlobalState,
+    Actions,
+    ActionKey
+} from './Interfaces'
 
 let actionIdCounter: ActionKey = 0
-let sliceKeyCounter: keyof GlobalState = 0
+let substateKeyCounter: keyof GlobalState = 0
 
 const globalState: GlobalState = {}
 const actions: Actions = {}
 
-function addAction (sliceKey: keyof GlobalState, stateModifier: Function): ActionKey {
-    if (!hasSlice(sliceKey)) {
-        throw new Error(`Slice key ${sliceKey} not registered`)
+function createAction (substateKey: keyof GlobalState, stateModifier: Function): ActionKey {
+    if (!hasSubstate(substateKey)) {
+        throw new Error(`Substate key ${substateKey} not registered`)
     }
 
     const actionId = actionIdCounter++
 
     actions[actionId] = {
-        sliceKey,
+        substateKey,
         stateModifier
     }
 
     return actionId
 }
 
-function addSlice (initialSliceData: any): keyof GlobalState {
-    const sliceKey = sliceKeyCounter++
+function createSubstate (initialData: any): keyof GlobalState {
+    const substateKey = substateKeyCounter++
 
-    globalState[sliceKey] = {
+    globalState[substateKey] = {
         listeners: [],
-        state: initialSliceData
+        state: initialData
     }
 
-    return sliceKey
+    return substateKey
 }
 
 function dispatch (actionName: keyof Actions, payload: any): void {
-    const sliceKey = actions[actionName].sliceKey
+    const substateKey = actions[actionName].substateKey
 
-    const newState = globalState[sliceKey].state = produce(
-        globalState[sliceKey].state,
+    const newState = globalState[substateKey].state = produce(
+        globalState[substateKey].state,
         (draft) => {
             actions[actionName].stateModifier(draft, payload)
         }
     )
 
-    globalState[sliceKey].listeners.forEach(
+    globalState[substateKey].listeners.forEach(
         (setState) => {
             setState(newState)
         }
     )
 }
 
-function getSlice (sliceKey: keyof GlobalState): any {
-    return globalState[sliceKey].state
+function getSubstate (substateKey: keyof GlobalState): any {
+    return globalState[substateKey].state
 }
 
-function hasSlice (sliceKey: keyof GlobalState): boolean {
-    return sliceKey in globalState
+function hasSubstate (substateKey: keyof GlobalState): boolean {
+    return substateKey in globalState
 }
 
-function registerListener (sliceKey: keyof GlobalState, setStateFunction: Function): void {
-    globalState[sliceKey].listeners.push(setStateFunction)
+function registerListener (substateKey: keyof GlobalState, setStateFunction: Function): void {
+    globalState[substateKey].listeners.push(setStateFunction)
 }
 
-function unregisterListener (sliceKey: keyof GlobalState, setStateFunction: Function): void {
-    globalState[sliceKey].listeners =
-        globalState[sliceKey].listeners.filter((li) => (li !== setStateFunction))
+function unregisterListener (substateKey: keyof GlobalState, setStateFunction: Function): void {
+    globalState[substateKey].listeners =
+        globalState[substateKey].listeners.filter((li) => (li !== setStateFunction))
 }
 
 export default {
-    actions,
-
-    addAction,
-    addSlice,
+    createAction,
+    createSubstate,
     dispatch,
-    hasSlice,
-    getSlice,
+    hasSubstate,
+    getSubstate,
     registerListener,
     unregisterListener
 }
