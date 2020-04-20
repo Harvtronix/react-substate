@@ -7,6 +7,7 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![License](https://img.shields.io/npm/l/react-substate?color=orange)](https://github.com/Harvtronix/react-substate/blob/master/LICENSE)
 [![CI](https://github.com/Harvtronix/react-substate/workflows/CI/badge.svg)](https://github.com/Harvtronix/react-substate/actions?query=workflow%3ACI)
+![Publish to NPM](https://github.com/Harvtronix/react-substate/workflows/Publish%20to%20NPM/badge.svg)
 
 
 ## Install
