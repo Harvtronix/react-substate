@@ -2,7 +2,7 @@
 
 > Blazing-fast, centralized state management with auto-guaranteed, immutable state changes
 
-[![NPM Version](https://img.shields.io/badge/package%20name-react--substate-blueviolet)](https://www.npmjs.com/package/react-substate)
+[![Package Name](https://img.shields.io/badge/pkg%20name-react--substate-blueviolet)](https://www.npmjs.com/package/react-substate)
 [![NPM Version](https://img.shields.io/npm/v/react-substate.svg)](https://www.npmjs.com/package/react-substate)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![License](https://img.shields.io/npm/l/react-substate?color=orange)](https://github.com/Harvtronix/react-substate/blob/master/LICENSE)
