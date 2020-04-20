@@ -1,7 +1,7 @@
 src/
 *.md
+.eslint*
 
-.eslintrc.json
 package-lock.json
 tsconfig.json
 webpack.config.js
