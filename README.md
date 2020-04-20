@@ -1,4 +1,4 @@
-# Substate
+# React Substate
 
 > Blazing-fast, centralized state management with auto-guaranteed, immutable state changes
 
