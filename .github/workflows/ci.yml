@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  #
+  # Make sure it builds without errors
+  #
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node 🏗️
+        uses: actions/setup-node@master
+        with:
+          node-version: 13.x
+
+      - name: Checkout 🛎️
+        uses: actions/checkout@master
+
+      - name: Install Node Modules 🔧
+        run: npm ci
+
+      - name: Build 🔨
+        run: npm run build
+
+  #
+  # Make sure it lints without errors
+  #
+  ci-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node 🏗️
+        uses: actions/setup-node@master
+        with:
+          node-version: 13.x
+
+      - name: Checkout 🛎️
+        uses: actions/checkout@master
+
+      - name: Install Node Modules 🔧
+        run: npm ci
+
+      - name: Lint 👀
+        run: npm run ci-lint
