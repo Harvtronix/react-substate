@@ -2,9 +2,12 @@
 
 > Blazing-fast, centralized state management with auto-guaranteed, immutable state changes
 
-[![NPM](https://img.shields.io/npm/v/react-substate.svg)](https://www.npmjs.com/package/react-substate)
+[![NPM Version](https://img.shields.io/npm/v/react-substate.svg)](https://www.npmjs.com/package/react-substate)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![NPM](https://img.shields.io/npm/l/react-substate?color=orange)](https://github.com/Harvtronix/react-substate/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/react-substate?color=orange)](https://github.com/Harvtronix/react-substate/blob/master/LICENSE)
+
+[![CI](https://github.com/Harvtronix/react-substate/workflows/CI/badge.svg)](https://github.com/Harvtronix/react-substate/actions?query=workflow%3ACI)
+
 
 ## Install
 
