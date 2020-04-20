@@ -1,0 +1,29 @@
+name: Build, Test, Publish
+
+on:
+  push:
+    tags: v[0-9]+.[0-9]+.[0-9]+
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node 🏗️
+        uses: actions/setup-node@master
+        with:
+          node-version: 13.x
+          registry-url: https://registry.npmjs.org/
+
+      - name: Checkout 🛎️
+        uses: actions/checkout@master
+
+      - name: Install, Build, Test 🔧
+        run: |
+          npm ci
+          npm run build
+          npm run ci-lint
+
+      - name: Publish 🚀
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
