@@ -1,14 +1,9 @@
 import StateManager from './StateManager'
+import useSubstate from './useSubstate'
 
-//
-// Default export object
-//
 export default {
     create: StateManager.createSubstate,
     createAction: StateManager.createAction
 }
 
-//
-// Named exports
-//
-export { useSubstate } from './useSubstate'
+export { useSubstate }

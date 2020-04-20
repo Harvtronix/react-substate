@@ -4,6 +4,7 @@
         "es6": true
     },
     "extends": [
+        "plugin:jsdoc/recommended",
         "plugin:react/recommended",
         "standard"
     ],
@@ -20,11 +21,21 @@
         "sourceType": "module"
     },
     "plugins": [
+        "jsdoc",
         "react",
         "@typescript-eslint"
     ],
     "rules": {
         "indent": ["warn", 4],
+        "jsdoc/require-jsdoc": ["warn", {
+            "require": {
+                "ArrowFunctionExpression": true,
+                "ClassDeclaration": true,
+                "ClassExpression": true,
+                "FunctionDeclaration": true,
+                "FunctionExpression": true
+            }
+        }],
         "no-undef": "off",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": ["error", {
@@ -32,5 +43,10 @@
             "args": "after-used",
             "ignoreRestSiblings": false
         }]
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
     }
 }
