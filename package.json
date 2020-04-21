@@ -24,7 +24,7 @@
   "source": "src/index.ts",
   "scripts": {
     "build": "webpack",
-    "ci-lint": "eslint --ext .ts,.tsx,.js,.jsx ."
+    "ci-lint": "eslint --ext .ts,.tsx,.js,.jsx --max-warnings 0 ."
   },
   "devDependencies": {
     "@types/react": "^16.9.32",

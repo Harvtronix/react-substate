@@ -1,28 +1,39 @@
-interface Substate {
-    listeners: Array<Function>,
-    state: {
-        [key: string]: any
-    }
+interface ActionStateModifier {
+    (draft: any, payload: any): any
 }
 
-interface GlobalState {
-    [key: number]: Substate
+interface ActionEntry {
+    substateKey: keyof Substates,
+    stateModifier: ActionStateModifier
 }
 
 interface Actions {
     [key: number]: ActionEntry
 }
 
-interface ActionEntry {
-    substateKey: keyof GlobalState,
-    stateModifier: Function
+interface Substates {
+    [key: number]: Substate
+}
+
+interface PatchEffectFunction {
+    (patches: any[]): void
+}
+
+interface Substate {
+    listeners: Function[],
+    patchEffects: PatchEffectFunction[],
+    state: {
+        [key: string]: any
+    }
 }
 
 type ActionKey = keyof Actions
 
 export type {
+    ActionStateModifier,
     ActionEntry,
     ActionKey,
     Actions,
-    GlobalState
+    Substates,
+    PatchEffectFunction
 }

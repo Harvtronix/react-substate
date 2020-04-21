@@ -1,9 +1,12 @@
-import StateManager from './StateManager'
-import useSubstate from './useSubstate'
+import SubstateManager from './managers/SubstateManager'
+import ActionManager from './managers/ActionManager'
+
+import useSubstate from './hooks/useSubstate'
+import usePatchEffect from './hooks/usePatchEffect'
 
 export default {
-    create: StateManager.createSubstate,
-    createAction: StateManager.createAction
+    create: SubstateManager.createSubstate,
+    createAction: ActionManager.createAction
 }
 
-export { useSubstate }
+export { usePatchEffect, useSubstate }
