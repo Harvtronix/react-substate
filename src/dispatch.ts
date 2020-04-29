@@ -22,15 +22,13 @@ function dispatch (actionName: keyof Actions, payload: any): void {
     Registry.substates[substateKey].state = produce(
         Registry.substates[substateKey].state,
         (draft) => {
-            Registry.actions[actionName].stateModifier(draft, payload)
+            return Registry.actions[actionName].stateModifier(draft, payload)
         },
-        PatchManager.isPatchingEnabled()
-            ? (patches) => {
-                PatchManager.handlePatchesProduced(substateKey, patches)
-            }
-            : undefined
         // Immer will throw an error if a third arg is passed with patching disabled, so use
         // `undefined` to make it seem like there's no additional arg
+        PatchManager.isPatchingEnabled()
+            ? (patches) => { PatchManager.handlePatchesProduced(substateKey, patches) }
+            : undefined
     )
 
     // Notify all substate listeners by calling their setState function
