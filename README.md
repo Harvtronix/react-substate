@@ -31,7 +31,7 @@ const substates = {
 
 // Set up some dispatchable actions
 const actions = {
-    onButtonClick: Substate.createAction(
+    updateButtonText: Substate.createAction(
         substates.test,
         (draft, payload) => {
             draft.field1 = payload // Will become "the new state"
@@ -45,7 +45,7 @@ const BasicExample = () => {
 
     return (
         <button
-            onClick={() => (dispatch(actions.onButtonClick, 'the new state'))}
+            onClick={() => (dispatch(actions.updateButtonText, 'the new state'))}
         >
             {test.field1}
         </button>
@@ -95,13 +95,13 @@ const substates = {
 }
 
 const actions = {
-    onButtonClick: Substate.createAction(
+    updateButtonText: Substate.createAction(
         substates.test,
         (draft, payload) => {
             draft.field1 = payload // Will become "the new state"
         }
     ),
-    onOtherButtonClick: Substate.createAction(
+    updateOtherButtonText: Substate.createAction(
         substates.anotherTest,
         (draft, payload) => {
             draft.foo = payload // Will become "baz"
@@ -127,13 +127,13 @@ const PatchEffectExample = () => {
     return (
         <>
             <button
-                onClick={() => (dispatch(actions.onButtonClick, 'the new state'))}
+                onClick={() => (dispatch(actions.updateButtonText, 'the new state'))}
             >
                 {test.field1}
             </button>
 
             <button
-                onClick={() => (dispatch(actions.onOtherButtonClick, 'baz'))}
+                onClick={() => (dispatch(actions.updateOtherButtonText, 'baz'))}
             >
                 Dispatch action to update "anotherTest"
             </button>
