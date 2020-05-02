@@ -1,7 +1,7 @@
 {
   "name": "react-substate",
   "author": "Harvtronix",
-  "version": "3.2.3",
+  "version": "3.3.0",
   "license": "MIT",
   "private": false,
   "description": "Blazing-fast, centralized state management with auto-guaranteed, immutable state changes",
