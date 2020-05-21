@@ -25,6 +25,7 @@
   "module": "dist/index.es.js",
   "scripts": {
     "build": "npm-run-all clean rollup",
+    "build-all": "npm-run-all ci-* build",
     "build-quick": "npm-run-all rollup",
     "develop": "nodemon --ext ts,tsx,js,tsx --ignore dist/ --exec npm run build-quick",
     "clean": "rimraf dist",
