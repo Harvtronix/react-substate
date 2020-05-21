@@ -1,10 +1,9 @@
-import { enablePatches } from 'immer'
+import {enablePatches} from 'immer'
 
 import {
-    Substates,
-    PatchEffectFunction
+    PatchEffectFunction,
+    Substates
 } from '../Interfaces'
-
 import Registry from '../Registry'
 
 /**

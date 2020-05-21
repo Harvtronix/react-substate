@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import {useEffect, useState} from 'react'
 
-import { Substates } from '../Interfaces'
-import SubstateManager from '../managers/SubstateManager'
 import dispatch from '../dispatch'
+import {Substates} from '../Interfaces'
+import SubstateManager from '../managers/SubstateManager'
 
 /**
  * Hook that allows a component to listen for changes to a substate and receive a reference to a
@@ -12,7 +12,8 @@ import dispatch from '../dispatch'
  * @returns {Array} Array whose `0` index is the current value of the substate and whose `1` index
  * is a dispatch function that can be called to update the substate.
  */
-function useSubstate (substateKey: keyof Substates): Array<object> {
+function useSubstate (substateKey: keyof Substates):
+    [any, (actionName: number, payload: any) => void] {
     if (!SubstateManager.hasSubstate(substateKey)) {
         throw new Error('No substate found with key ' + substateKey)
     }

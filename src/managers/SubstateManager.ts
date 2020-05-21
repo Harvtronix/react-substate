@@ -1,4 +1,4 @@
-import { Substates } from '../Interfaces'
+import {Substates} from '../Interfaces'
 import Registry from '../Registry'
 
 /**

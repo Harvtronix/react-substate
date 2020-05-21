@@ -1,7 +1,7 @@
 import {
     Actions,
-    Substates,
-    PatchEffectFunction
+    PatchEffectFunction,
+    Substates
 } from './Interfaces'
 
 //

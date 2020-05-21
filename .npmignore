@@ -4,4 +4,4 @@ src/
 
 package-lock.json
 tsconfig.json
-webpack.config.js
+rollup.config.js

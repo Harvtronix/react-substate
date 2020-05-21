@@ -1,6 +1,6 @@
-import Substate from './dist/index'
+import Substate from './dist/main'
 
 declare module 'react-substate' {
     export default Substate
-    export * from './dist/index'
+    export * from './dist/main'
 }

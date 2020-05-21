@@ -23,6 +23,7 @@
     "plugins": [
         "jsdoc",
         "react",
+        "simple-import-sort",
         "@typescript-eslint"
     ],
     "rules": {
@@ -39,6 +40,8 @@
         "max-len": ["warn", 100],
         "no-undef": "off",
         "no-unused-vars": "off",
+        "object-curly-spacing": ["warn", "never"],
+        "simple-import-sort/sort": "warn",
         "@typescript-eslint/no-unused-vars": ["error", {
             "vars": "all",
             "args": "after-used",

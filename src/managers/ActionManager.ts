@@ -1,11 +1,10 @@
 import {
-    Substates,
+    ActionKey,
     ActionStateModifier,
-    ActionKey
+    Substates
 } from '../Interfaces'
-
-import SubstateManager from './SubstateManager'
 import Registry from '../Registry'
+import SubstateManager from './SubstateManager'
 
 /**
  * Registers a new dispatchable action to modify a substate.

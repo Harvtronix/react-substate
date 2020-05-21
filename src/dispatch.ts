@@ -1,8 +1,8 @@
 import produce from 'immer'
 
-import { Actions } from './Interfaces'
-import Registry from './Registry'
+import {Actions} from './Interfaces'
 import PatchManager from './managers/PatchManager'
+import Registry from './Registry'
 
 /**
  * This function is basically the whole point of this node module.

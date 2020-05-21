@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
+import {useEffect} from 'react'
 
-import { Substates, PatchEffectFunction } from '../Interfaces'
-import SubstateManager from '../managers/SubstateManager'
+import {PatchEffectFunction, Substates} from '../Interfaces'
 import PatchManager from '../managers/PatchManager'
+import SubstateManager from '../managers/SubstateManager'
 
 /**
  * Hook that allows a component to receive patches each time a substate is updated.
