@@ -1,6 +1,7 @@
 src/
 *.md
 .eslint*
+.github/
 
 package-lock.json
 tsconfig.json
