@@ -1,5 +1,6 @@
 import {useEffect} from 'react'
 
+import Debug from '../Debug'
 import {PatchEffectFunction, Substates} from '../Interfaces'
 import PatchManager from '../managers/PatchManager'
 import SubstateManager from '../managers/SubstateManager'
@@ -22,18 +23,18 @@ function usePatchEffect (
 
     useEffect(() => {
         if (substateKey !== undefined) {
-            console.log('Registering patch effect for ' + substateKey)
+            Debug.log('Registering patch effect for ' + substateKey)
         } else {
-            console.log('Registering global patch effect')
+            Debug.log('Registering global patch effect')
         }
 
         PatchManager.registerPatchEffect(effectFunction, substateKey)
 
         return () => {
             if (substateKey !== undefined) {
-                console.log('Unregistering patch effect for ' + substateKey)
+                Debug.log('Unregistering patch effect for ' + substateKey)
             } else {
-                console.log('Unregistering global patch effect')
+                Debug.log('Unregistering global patch effect')
             }
 
             PatchManager.unregisterPatchEffect(effectFunction, substateKey)

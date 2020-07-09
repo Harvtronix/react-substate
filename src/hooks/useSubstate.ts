@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 
+import Debug from '../Debug'
 import dispatch from '../dispatch'
 import {Substates} from '../Interfaces'
 import SubstateManager from '../managers/SubstateManager'
@@ -21,11 +22,11 @@ function useSubstate (substateKey: keyof Substates):
     const [, setState] = useState()
 
     useEffect(() => {
-        console.log('Registering listener for ' + substateKey)
+        Debug.log('Registering listener for ' + substateKey)
         SubstateManager.registerListener(substateKey, setState)
 
         return () => {
-            console.log('Unregistering listener for ' + substateKey)
+            Debug.log('Unregistering listener for ' + substateKey)
             SubstateManager.unregisterListener(substateKey, setState)
         }
     }, [substateKey, setState])

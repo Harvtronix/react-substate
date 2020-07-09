@@ -1,5 +1,6 @@
 import {enablePatches} from 'immer'
 
+import Debug from '../Debug'
 import {
     PatchEffectFunction,
     Substates
@@ -43,7 +44,7 @@ function ensurePatchingEnabled (): void {
         return
     }
 
-    console.log('Enabling patch support in immer')
+    Debug.log('Enabling patch support in immer')
 
     enablePatches()
     patchingEnabled = true
