@@ -13,7 +13,7 @@
 ## Install
 
 ```bash
-npm install --save react-substate
+npm install react-substate [react react-dom immer]
 ```
 
 ## Basic Example
