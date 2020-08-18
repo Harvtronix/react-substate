@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 
 import Debug from '../Debug'
 import dispatch from '../dispatch'
-import {Substates} from '../Interfaces'
+import {Dispatcher, Substates} from '../Interfaces'
 import SubstateManager from '../managers/SubstateManager'
 
 /**
@@ -14,7 +14,7 @@ import SubstateManager from '../managers/SubstateManager'
  * is a dispatch function that can be called to update the substate.
  */
 function useSubstate (substateKey: keyof Substates):
-    [any, (actionName: number, payload: any) => void] {
+    [any, Dispatcher] {
     if (!SubstateManager.hasSubstate(substateKey)) {
         throw new Error('No substate found with key ' + substateKey)
     }

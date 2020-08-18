@@ -1,4 +1,5 @@
 import Debug from './Debug'
+import useDispatch from './hooks/useDispatch'
 import usePatchEffect from './hooks/usePatchEffect'
 import useSubstate from './hooks/useSubstate'
 import ActionManager from './managers/ActionManager'
@@ -10,4 +11,4 @@ export default {
     setDebugEnabled: Debug.setDebugEnabled
 }
 
-export {usePatchEffect, useSubstate}
+export {useDispatch, usePatchEffect, useSubstate}

@@ -27,6 +27,10 @@ interface Substate {
     }
 }
 
+interface Dispatcher {
+    (actionName: keyof Actions, payload: any): void;
+}
+
 type ActionKey = keyof Actions
 
 export type {
@@ -34,6 +38,7 @@ export type {
     ActionEntry,
     ActionKey,
     Actions,
+    Dispatcher,
     Substates,
     PatchEffectFunction
 }

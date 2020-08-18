@@ -144,8 +144,31 @@ const PatchEffectExample = () => {
 export default PatchEffectExample
 ```
 
+# API Reference
+
+## Functions
+`Substate.create`
+Creates and registers a new substate with the given initial data.
+
+`Substate.createAction`
+Registers a new dispatchable action to modify a substate. Returns an identifier used to later reference this action when calling dispatch.
+
+`Substate.setDebugEnabled`
+Turns on/off logging of debug statements to the Javascript console.
+
+## Hooks
+
+`useDispatch`
+Hook that allows a component to receive a reference to a dispatch function that can be called to update substates without also listening for changes to any substates.
+
+`usePatchEffect`
+Hook that allows a component to receive patches each time a substate is updated.
+
+`useSubstate`
+Hook that allows a component to listen for changes to a substate and receive a reference to a dispatch function that can be called to update that substate.
+
 # Peer Dependencies
-This module has peer dependencies on `react`, `react-dom`, and `immer`.
+This module has peer dependencies on `react 16`, `react-dom 16`, and `immer 7`.
 
 # License
 
