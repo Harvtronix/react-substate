@@ -13,10 +13,7 @@ import SubstateManager from '../managers/SubstateManager'
  * @param {keyof Substates} [substateKey] Optional substate key to limit which patches are passed
  * to this patch effect.
  */
-function usePatchEffect (
-    effectFunction: PatchEffectFunction,
-    substateKey?: keyof Substates
-): void {
+function usePatchEffect (effectFunction: PatchEffectFunction, substateKey?: keyof Substates): void {
     if (substateKey !== undefined && !SubstateManager.hasSubstate(substateKey)) {
         throw new Error('No substate found with key ' + substateKey)
     }

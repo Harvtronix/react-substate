@@ -13,8 +13,7 @@ import SubstateManager from '../managers/SubstateManager'
  * @returns {Array} Array whose `0` index is the current value of the substate and whose `1` index
  * is a dispatch function that can be called to update the substate.
  */
-function useSubstate (substateKey: keyof Substates):
-    [any, Dispatcher] {
+function useSubstate (substateKey: keyof Substates): [any, Dispatcher] {
     if (!SubstateManager.hasSubstate(substateKey)) {
         throw new Error('No substate found with key ' + substateKey)
     }
