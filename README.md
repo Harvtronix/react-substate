@@ -116,7 +116,7 @@ const PatchEffectExample = () => {
     usePatchEffect((patches) => {
         console.log('I am only called when "anotherTest" updates')
         console.log(patches)
-    }, substates.anotherTest)
+    }, substates.anotherTest) // this could be an array of substates, too
 
     // Create a patch effect for all substates
     usePatchEffect((patches) => {
