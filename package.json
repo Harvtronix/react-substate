@@ -59,7 +59,7 @@
   },
   "peerDependencies": {
     "immer": "^7.0",
-    "react": "^16.13",
-    "react-dom": "^16.13"
+    "react": "^16.14",
+    "react-dom": "^16.14"
   }
 }
