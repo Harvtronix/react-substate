@@ -45,7 +45,7 @@ const BasicExample = () => {
 
     return (
         <button
-            onClick={() => (dispatch('the new state'))}
+            onClick={() => (dispatch(actions.updateButtonText, 'the new state'))}
         >
             {test.field1}
         </button>
