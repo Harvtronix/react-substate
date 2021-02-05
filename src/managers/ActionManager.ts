@@ -1,39 +1,26 @@
 import {
-    ActionKey,
-    ActionStateModifier,
-    Substates
+    Actions,
+    ActionStateModifier
 } from '../Interfaces'
-import Registry from '../Registry'
-import SubstateManager from './SubstateManager'
+import {
+    actions,
+    createActionKey
+} from '../Registry'
 
 /**
  * Registers a new dispatchable action to modify a substate.
  *
- * @param {keyof Substates} substateKey Key in the global substate registry for which this
- * action should be dispatched.
  * @param {ActionStateModifier} stateModifier Handler function that is called to modify the state
  * during a dispatch of this action.
  *
- * @returns {ActionKey} Identifier used to later reference this action when calling dispatch.
+ * @returns {keyof Actions} Identifier used to later reference this action when calling dispatch.
  */
-function createAction (
-    substateKey: keyof Substates,
+export function createAction (
     stateModifier: ActionStateModifier
-): ActionKey {
-    if (!SubstateManager.hasSubstate(substateKey)) {
-        throw new Error(`Substate key ${substateKey} not registered`)
-    }
+): keyof Actions {
+    const actionKey = createActionKey()
 
-    const actionKey = Registry.createActionKey()
-
-    Registry.actions[actionKey] = {
-        substateKey,
-        stateModifier
-    }
+    actions[actionKey] = stateModifier
 
     return actionKey
-}
-
-export default {
-    createAction
 }

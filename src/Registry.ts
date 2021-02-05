@@ -38,10 +38,6 @@ let actionKeyCounter: keyof Actions = 0
 let substateKeyCounter: keyof Substates = 0
 
 //
-// Flags
-//
-
-//
 // Functions
 //
 
@@ -59,7 +55,7 @@ function createSubstateKey (): keyof Substates {
     return substateKeyCounter++
 }
 
-export default {
+export {
     actions,
     patchEffects,
     substates,

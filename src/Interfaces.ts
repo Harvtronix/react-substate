@@ -2,17 +2,8 @@ interface ActionStateModifier {
     (draft: any, payload: any): any
 }
 
-interface ActionEntry {
-    substateKey: keyof Substates,
-    stateModifier: ActionStateModifier
-}
-
 interface Actions {
-    [key: number]: ActionEntry
-}
-
-interface Substates {
-    [key: number]: Substate
+    [key: number]: ActionStateModifier
 }
 
 interface PatchEffectFunction {
@@ -27,16 +18,16 @@ interface Substate {
     }
 }
 
-interface Dispatcher {
-    (actionName: keyof Actions, payload: any): void;
+interface Substates {
+    [key: number]: Substate
 }
 
-type ActionKey = keyof Actions
+interface Dispatcher {
+    (actionKey: keyof Actions, payload: any): void;
+}
 
 export type {
     ActionStateModifier,
-    ActionEntry,
-    ActionKey,
     Actions,
     Dispatcher,
     Substates,

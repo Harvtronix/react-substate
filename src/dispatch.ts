@@ -1,8 +1,15 @@
 import produce from 'immer'
 
-import {Actions} from './Interfaces'
-import PatchManager from './managers/PatchManager'
-import Registry from './Registry'
+import {log} from './Debug'
+import {Actions, Substates} from './Interfaces'
+import {
+    handlePatchesProduced,
+    isPatchingEnabled
+} from './managers/PatchManager'
+import {
+    actions,
+    substates
+} from './Registry'
 
 /**
  * This function is basically the whole point of this node module.
@@ -12,31 +19,34 @@ import Registry from './Registry'
  * substate listeners being notified of the newly produced state, as well as all patch effects
  * being called.
  *
- * @param {keyof Actions} actionName The action to dispatch.
+ * @param {keyof Substates} substateKey The key of the substate that will be updated.
+ * @param {keyof Actions} actionKey The action to dispatch.
  * @param {*} payload The data to pass to the action handler function.
  */
-function dispatch (actionName: keyof Actions, payload: any): void {
-    const substateKey = Registry.actions[actionName].substateKey
+export function dispatch (
+    substateKey: keyof Substates,
+    actionKey: keyof Actions,
+    payload: any
+): void {
+    log(`dispatching action ${actionKey} for substate ${substateKey}. Payload: ${payload}`)
 
     // Update the global state via immer
-    Registry.substates[substateKey].state = produce(
-        Registry.substates[substateKey].state,
+    substates[substateKey].state = produce(
+        substates[substateKey].state,
         (draft) => {
-            return Registry.actions[actionName].stateModifier(draft, payload)
+            return actions[actionKey](draft, payload)
         },
         // Immer will throw an error if a third arg is passed with patching disabled, so use
         // `undefined` to make it seem like there's no additional arg
-        PatchManager.isPatchingEnabled()
-            ? (patches) => { PatchManager.handlePatchesProduced(substateKey, patches) }
+        isPatchingEnabled()
+            ? (patches) => { handlePatchesProduced(substateKey, patches) }
             : undefined
     )
 
     // Notify all substate listeners by calling their setState function
-    Registry.substates[substateKey].listeners.forEach(
+    substates[substateKey].listeners.forEach(
         (setState) => {
-            setState(Registry.substates[substateKey].state)
+            setState(substates[substateKey].state)
         }
     )
 }
-
-export default dispatch

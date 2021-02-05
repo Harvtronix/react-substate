@@ -1,11 +1,14 @@
 import {enablePatches} from 'immer'
 
-import Debug from '../Debug'
+import {log} from '../Debug'
 import {
     PatchEffectFunction,
     Substates
 } from '../Interfaces'
-import Registry from '../Registry'
+import {
+    patchEffects,
+    substates
+} from '../Registry'
 
 /**
  * boolean indicator of whether or not patching is currently enabled.
@@ -25,12 +28,12 @@ function handlePatchesProduced (substateKey: keyof Substates, patches: any[]): v
     }
 
     // Fire all substate-specific patch effects
-    Registry.patchEffects.forEach((patchEffectFunction) => {
+    patchEffects.forEach((patchEffectFunction) => {
         patchEffectFunction(patches)
     })
 
     // Fire all global patch effects
-    Registry.substates[substateKey].patchEffects.forEach((patchEffectFunction) => {
+    substates[substateKey].patchEffects.forEach((patchEffectFunction) => {
         patchEffectFunction(patches)
     })
 }
@@ -44,7 +47,7 @@ function ensurePatchingEnabled (): void {
         return
     }
 
-    Debug.log('Enabling patch support in immer')
+    log('Enabling patch support in immer')
 
     enablePatches()
     patchingEnabled = true
@@ -75,10 +78,10 @@ function registerPatchEffect (
 
     if (substateKey !== undefined) {
         // Substate key was provided. Register with specific substate
-        Registry.substates[substateKey].patchEffects.push(effectFunction)
+        substates[substateKey].patchEffects.push(effectFunction)
     } else {
         // Substate key was not provided. Register patch effect globally
-        Registry.patchEffects.push(effectFunction)
+        patchEffects.push(effectFunction)
     }
 }
 
@@ -95,19 +98,21 @@ function unregisterPatchEffect (
 ): void {
     if (substateKey !== undefined) {
         // Substate key was provided. Unregister from specific substate
-        Registry.substates[substateKey].patchEffects =
-            Registry.substates[substateKey].patchEffects.filter(
+        substates[substateKey].patchEffects =
+            substates[substateKey].patchEffects.filter(
                 (ef: PatchEffectFunction) => (ef !== effectFunction)
             )
     } else {
         // Substate key was not provided. Unregister globally
-        Registry.patchEffects = Registry.patchEffects.filter(
+        const remainingPatchEffects = patchEffects.filter(
             (ef: PatchEffectFunction) => (ef !== effectFunction)
         )
+        // Clear the array and replace with the remaining patch effects
+        patchEffects.splice(0, patchEffects.length, ...remainingPatchEffects)
     }
 }
 
-export default {
+export {
     handlePatchesProduced,
     isPatchingEnabled,
     registerPatchEffect,

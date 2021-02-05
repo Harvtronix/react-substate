@@ -1,9 +1,12 @@
 import {useEffect} from 'react'
 
-import Debug from '../Debug'
+import {log} from '../Debug'
 import {PatchEffectFunction, Substates} from '../Interfaces'
-import PatchManager from '../managers/PatchManager'
-import SubstateManager from '../managers/SubstateManager'
+import {
+    registerPatchEffect,
+    unregisterPatchEffect
+} from '../managers/PatchManager'
+import {hasSubstate} from '../managers/SubstateManager'
 
 /**
  * Hook that allows a component to receive patches each time a substate is updated.
@@ -13,7 +16,7 @@ import SubstateManager from '../managers/SubstateManager'
  * @param {keyof Substates} [substateKeys] Optional substate key to limit which patches are passed
  * to this patch effect.
  */
-function usePatchEffect (
+export function usePatchEffect (
     effectFunction: PatchEffectFunction,
     substateKeys?: keyof Substates | Array<keyof Substates>
 ): void {
@@ -28,40 +31,38 @@ function usePatchEffect (
     }
 
     keyList.forEach((substateKey) => {
-        if (!SubstateManager.hasSubstate(substateKey)) {
+        if (!hasSubstate(substateKey)) {
             throw new Error('No substate found with key ' + substateKey)
         }
     })
 
     useEffect(() => {
         if (keyList.length === 0) {
-            Debug.log('Registering global patch effect')
+            log('Registering global patch effect')
 
-            PatchManager.registerPatchEffect(effectFunction)
+            registerPatchEffect(effectFunction)
         } else {
             // Register the effect function for each key
             keyList.forEach((substateKey) => {
-                Debug.log('Registering patch effect for ' + substateKey)
+                log('Registering patch effect for ' + substateKey)
 
-                PatchManager.registerPatchEffect(effectFunction, substateKey)
+                registerPatchEffect(effectFunction, substateKey)
             })
         }
 
         return () => {
             if (keyList.length === 0) {
-                Debug.log('Unregistering global patch effect')
+                log('Unregistering global patch effect')
 
-                PatchManager.unregisterPatchEffect(effectFunction)
+                unregisterPatchEffect(effectFunction)
             } else {
                 // Unregister the effect function for each key
                 keyList.forEach((substateKey) => {
-                    Debug.log('Unregistering patch effect for ' + substateKey)
+                    log('Unregistering patch effect for ' + substateKey)
 
-                    PatchManager.unregisterPatchEffect(effectFunction, substateKey)
+                    unregisterPatchEffect(effectFunction, substateKey)
                 })
             }
         }
     }, [effectFunction, substateKeys])
 }
-
-export default usePatchEffect

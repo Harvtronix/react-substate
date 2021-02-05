@@ -19,9 +19,11 @@ function log (val: any) {
  */
 function setDebugEnabled (isEnabled: boolean) {
     isDebugEnabled = isEnabled
+
+    log('react-substate debug mode enabled')
 }
 
-export default {
+export {
     log,
     setDebugEnabled
 }

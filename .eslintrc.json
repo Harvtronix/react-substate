@@ -41,7 +41,7 @@
         "no-undef": "off",
         "no-unused-vars": "off",
         "object-curly-spacing": ["warn", "never"],
-        "simple-import-sort/sort": "warn",
+        "simple-import-sort/imports": "warn",
         "@typescript-eslint/no-unused-vars": ["error", {
             "vars": "all",
             "args": "after-used",

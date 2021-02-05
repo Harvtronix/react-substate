@@ -1,39 +1,45 @@
 import {useEffect, useState} from 'react'
 
-import Debug from '../Debug'
-import dispatch from '../dispatch'
+import {log} from '../Debug'
 import {Dispatcher, Substates} from '../Interfaces'
-import SubstateManager from '../managers/SubstateManager'
+import {
+    getSubstate,
+    hasSubstate,
+    registerListener,
+    unregisterListener
+} from '../managers/SubstateManager'
+import {useDispatch} from './useDispatch'
 
 /**
  * Hook that allows a component to listen for changes to a substate and receive a reference to a
  * dispatch function that can be called to update that substate.
  *
- * @param {keyof Substates} substateKey Substate key to attach to.
+ * @param {keyof Substates} substateKey The key of the substate to return. The returned dispatch
+ * function will be scoped to this substate as well.
  * @returns {Array} Array whose `0` index is the current value of the substate and whose `1` index
  * is a dispatch function that can be called to update the substate.
  */
-function useSubstate (substateKey: keyof Substates): [any, Dispatcher] {
-    if (!SubstateManager.hasSubstate(substateKey)) {
+export function useSubstate (substateKey: keyof Substates): [any, Dispatcher] {
+    if (!hasSubstate(substateKey)) {
         throw new Error('No substate found with key ' + substateKey)
     }
+
+    const dispatch = useDispatch(substateKey)
 
     const [, setState] = useState()
 
     useEffect(() => {
-        Debug.log('Registering listener for ' + substateKey)
-        SubstateManager.registerListener(substateKey, setState)
+        log('Registering listener for ' + substateKey)
+        registerListener(substateKey, setState)
 
         return () => {
-            Debug.log('Unregistering listener for ' + substateKey)
-            SubstateManager.unregisterListener(substateKey, setState)
+            log('Unregistering listener for ' + substateKey)
+            unregisterListener(substateKey, setState)
         }
     }, [substateKey, setState])
 
     return [
-        SubstateManager.getSubstate(substateKey),
+        getSubstate(substateKey),
         dispatch
     ]
 }
-
-export default useSubstate

@@ -1,5 +1,8 @@
 import {Substates} from '../Interfaces'
-import Registry from '../Registry'
+import {
+    createSubstateKey,
+    substates
+} from '../Registry'
 
 /**
  * Creates and registers a new substate with the given initial data.
@@ -8,10 +11,10 @@ import Registry from '../Registry'
  * @returns {keyof Substates} Identifier used to later reference this substate.
  */
 function createSubstate (initialData: any): keyof Substates {
-    const substateKey = Registry.createSubstateKey()
+    const substateKey = createSubstateKey()
 
     // Create and register the actual substate
-    Registry.substates[substateKey] = {
+    substates[substateKey] = {
         listeners: [],
         patchEffects: [],
         state: initialData
@@ -31,7 +34,7 @@ function getSubstate (substateKey: keyof Substates): any {
     if (!hasSubstate(substateKey)) {
         throw new Error(`Substate key ${substateKey} not registered`)
     }
-    return Registry.substates[substateKey].state
+    return substates[substateKey].state
 }
 
 /**
@@ -41,7 +44,7 @@ function getSubstate (substateKey: keyof Substates): any {
  * @returns {boolean} true if a substate exists for the provided key; false otherwise.
  */
 function hasSubstate (substateKey: keyof Substates): boolean {
-    return substateKey in Registry.substates
+    return substateKey in substates
 }
 
 /**
@@ -53,7 +56,7 @@ function hasSubstate (substateKey: keyof Substates): boolean {
  * `substateKey` is updated. This is typically obtained by calling the `useState` hook.
  */
 function registerListener (substateKey: keyof Substates, setStateFunction: Function): void {
-    Registry.substates[substateKey].listeners.push(setStateFunction)
+    substates[substateKey].listeners.push(setStateFunction)
 }
 
 /**
@@ -65,11 +68,11 @@ function registerListener (substateKey: keyof Substates, setStateFunction: Funct
  * typically one obtained by calling the `useState` hook.
  */
 function unregisterListener (substateKey: keyof Substates, setStateFunction: Function): void {
-    Registry.substates[substateKey].listeners =
-        Registry.substates[substateKey].listeners.filter((li) => (li !== setStateFunction))
+    substates[substateKey].listeners =
+        substates[substateKey].listeners.filter((li) => (li !== setStateFunction))
 }
 
-export default {
+export {
     createSubstate,
     hasSubstate,
     getSubstate,

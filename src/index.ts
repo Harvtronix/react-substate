@@ -1,14 +1,26 @@
-import Debug from './Debug'
-import useDispatch from './hooks/useDispatch'
-import usePatchEffect from './hooks/usePatchEffect'
-import useSubstate from './hooks/useSubstate'
-import ActionManager from './managers/ActionManager'
-import SubstateManager from './managers/SubstateManager'
+import {setDebugEnabled} from './Debug'
+import {useDispatch} from './hooks/useDispatch'
+import {usePatchEffect} from './hooks/usePatchEffect'
+import {useSubstate} from './hooks/useSubstate'
+import {createAction} from './managers/ActionManager'
+import {createSubstate} from './managers/SubstateManager'
 
 export default {
-    create: SubstateManager.createSubstate,
-    createAction: ActionManager.createAction,
-    setDebugEnabled: Debug.setDebugEnabled
+    createAction,
+    createSubstate,
+    setDebugEnabled,
+
+    useDispatch,
+    usePatchEffect,
+    useSubstate
 }
 
-export {useDispatch, usePatchEffect, useSubstate}
+export {
+    createAction,
+    createSubstate,
+    setDebugEnabled,
+
+    useDispatch,
+    usePatchEffect,
+    useSubstate
+}
