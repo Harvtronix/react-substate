@@ -63,7 +63,7 @@ The 4.0 release includes breaking changes, but improves the user experience when
 
 ### Changes
 - Reworked `createAction` to not take a substate key as input. The mapping between a substate and a `dispatch` function is now handled when invoking the `useSubstate` or `useDispatch` hooks.
-- `Substate.create` is now either `createAction` or `Substate.createAction`.
+- `Substate.create` is now either `createSubstate` or `Substate.createSubstate`.
 - `useDispatch` now creates/returns a memoized, curried function that is automatically linked to to the provided substate.
 - `useSubstate` now internally uses `useDispatch` to obtain the dispatch function. This means less overall code and more efficiency.
 - All module exports are now exposed to consumers through both the default export and named exports.
