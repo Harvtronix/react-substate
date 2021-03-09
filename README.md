@@ -61,7 +61,7 @@ export default BasicExample
 ## Migrating from 3.x to 4.x
 The 4.0 release includes breaking changes, but improves the user experience when using the module. It should also be a tiny bit faster because of some clever memoization. Here are the details of the change so you can migrate from v3 to v4.
 
-## Changes
+### Changes
 - Reworked `createAction` to not take a substate key as input. The mapping between a substate and a `dispatch` function is now handled when invoking the `useSubstate` or `useDispatch` hooks.
 - `Substate.create` is now either `createAction` or `Substate.createAction`.
 - `useDispatch` now creates/returns a memoized, curried function that is automatically linked to to the provided substate.
