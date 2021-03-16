@@ -2,6 +2,7 @@ import produce from 'immer'
 
 import {log} from './Debug'
 import {Actions, Substates} from './Interfaces'
+import {updateDevTools} from './managers/DevToolsManager'
 import {
     handlePatchesProduced,
     isPatchingEnabled
@@ -49,4 +50,7 @@ export function dispatch (
             setState(substates[substateKey].state)
         }
     )
+
+    // Notify the DevTools
+    updateDevTools('Dispatch', actionKey)
 }

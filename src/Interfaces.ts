@@ -6,30 +6,53 @@ interface Actions {
     [key: number]: ActionStateModifier
 }
 
-interface PatchEffectFunction {
-    (patches: any[]): void
+interface Dispatcher {
+    (actionKey: keyof Actions, payload: any): void
 }
 
-interface Substate {
-    listeners: Function[],
-    patchEffects: PatchEffectFunction[],
-    state: {
-        [key: string]: any
-    }
+interface PatchEffectFunction {
+    (patches: Array<any>): void
 }
 
 interface Substates {
-    [key: number]: Substate
+    [key: number]: {
+        listeners: Array<Function>
+        patchEffects: Array<PatchEffectFunction>
+        state: {
+            [key: string]: any
+        }
+    }
 }
 
-interface Dispatcher {
-    (actionKey: keyof Actions, payload: any): void;
+interface DevToolsState {
+    [key: number]: {
+        listeners: number,
+        patchEffects: number,
+        state: {
+            [key: string]: any
+        }
+    }
 }
+
+interface DevTools {
+    subscribe: (listener: () => () => void) => any
+    unsubscribe: () => void
+    send: (action: string, state: DevToolsState) => void
+    init: (state: DevToolsState) => void
+    error: (message: string) => void
+}
+
+type DevToolsOperation =
+    'Create Substate' |
+    'Dispatch'
 
 export type {
     ActionStateModifier,
     Actions,
+    DevTools,
+    DevToolsOperation,
+    DevToolsState,
     Dispatcher,
-    Substates,
-    PatchEffectFunction
+    PatchEffectFunction,
+    Substates
 }

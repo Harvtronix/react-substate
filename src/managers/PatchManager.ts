@@ -20,9 +20,9 @@ let patchingEnabled = false
  *
  * @param {keyof Substates} substateKey Key pointing to the substate for which patches were
  * produced.
- * @param {any[]} patches The patches array, as provided by immer.
+ * @param {Array<any>} patches The patches array, as provided by immer.
  */
-function handlePatchesProduced (substateKey: keyof Substates, patches: any[]): void {
+function handlePatchesProduced (substateKey: keyof Substates, patches: Array<any>): void {
     if (patches.length === 0) {
         return
     }

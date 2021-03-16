@@ -16,7 +16,7 @@ const actions: Actions = {}
 /**
  * Global registry of all patch effects.
  */
-const patchEffects: PatchEffectFunction[] = []
+const patchEffects: Array<PatchEffectFunction> = []
 
 /**
  * Global registry of all substates.

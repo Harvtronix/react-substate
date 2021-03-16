@@ -1,3 +1,6 @@
+/**
+ * Flag indicating whether or not to log output to the Javascript console.
+ */
 let isDebugEnabled: boolean = false
 
 /**

@@ -3,6 +3,7 @@ import {
     createSubstateKey,
     substates
 } from '../Registry'
+import {updateDevTools} from './DevToolsManager'
 
 /**
  * Creates and registers a new substate with the given initial data.
@@ -19,6 +20,9 @@ function createSubstate (initialData: any): keyof Substates {
         patchEffects: [],
         state: initialData
     }
+
+    // Notify the DevTools
+    updateDevTools('Create Substate')
 
     return substateKey
 }
