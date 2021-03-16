@@ -58,6 +58,9 @@ const BasicExample = () => {
 export default BasicExample
 ```
 
+## 🌟 New! React Substate now supports Redux DevTools
+If you have the Redux DevTools extension installed in your browser, you'll be able to see changes driven by substate creations and action dispatches as they happen over time. The support is somewhat limited for now, but will only get better with time!
+
 ## Migrating from 3.x to 4.x
 The 4.0 release includes breaking changes, but improves the user experience when using the module. It should also be a tiny bit faster because of some clever memoization. Here are the details of the change so you can migrate from v3 to v4.
 
@@ -183,8 +186,10 @@ Registers a new dispatchable action to modify a substate. Returns an identifier 
 `setDebugEnabled`
 Turns on/off logging of debug statements to the Javascript console.
 
-## Hooks
+`setDevToolsEnabled`
+Turns on/off logging of substate changes to the DevTools browser extension.
 
+## Hooks
 `useSubstate`
 Hook that allows a component to listen for changes to a substate and receive a reference to a dispatch function that can be called to update that substate.
 
