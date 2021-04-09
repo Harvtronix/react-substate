@@ -13,8 +13,8 @@ import {actions, substates} from '../Registry'
 let isDevToolsEnabled = false
 
 // Obtain a handle to the DevTools extension if it exists
-const w = window as any
-const devTools = w.__REDUX_DEVTOOLS_EXTENSION__
+const w = typeof window !== 'undefined' ? (window as any) : null
+const devTools = w && w.__REDUX_DEVTOOLS_EXTENSION__
     ? w.__REDUX_DEVTOOLS_EXTENSION__.connect() as DevTools
     : null
 
