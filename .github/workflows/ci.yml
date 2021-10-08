@@ -27,7 +27,7 @@ jobs:
         run: npm ci
 
       - name: Build 🔨
-        run: npm -w packages/react-substate run build
+        run: npm --workspace packages/react-substate run build
 
   #
   # Make sure it lints without errors
@@ -47,4 +47,4 @@ jobs:
         run: npm ci
 
       - name: Lint 👀
-        run: npm run ci-lint
+        run: npm --workspaces run ci-lint

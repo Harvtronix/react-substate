@@ -22,9 +22,9 @@ jobs:
         run: npm ci
 
       - name: Build 🔨
-        run: npm -w packages/react-substate run build
+        run: npm --workspace packages/react-substate run build
 
       - name: Publish 🚀
-        run: npm -w packages/react-substate publish
+        run: npm --workspace packages/react-substate publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
