@@ -1,5 +1,5 @@
 {
-  "name": "react-substate-examples-16",
+  "name": "examples-16",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -32,7 +32,6 @@
     "fs-extra": "^8.1.0",
     "html-webpack-plugin": "4.0.0-beta.11",
     "identity-obj-proxy": "3.0.0",
-    "immer": "^8.0.1",
     "jest": "24.9.0",
     "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "24.9.0",
@@ -138,7 +137,14 @@
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
-  "devDependencies": {},
   "author": "Harvtronix",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Harvtronix/react-substate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Harvtronix/react-substate/issues"
+  },
+  "homepage": "https://github.com/Harvtronix/react-substate#readme"
 }

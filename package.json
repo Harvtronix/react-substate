@@ -1,6 +1,7 @@
 {
   "name": "react-substate-monorepo",
   "version": "0.1.0",
+  "private": true,
   "description": "React Substate Monorepo",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +13,6 @@
   },
   "workspaces": [
     "packages/react-substate",
-    "packages/react-substate-examples-16",
-    "packages/react-substate-examples-17"
+    "packages/examples-17"
   ]
 }
