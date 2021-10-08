@@ -1,9 +1,5 @@
 name: Publish to NPM
 
-defaults:
-  run:
-    working-directory: packages/react-substate
-
 on:
   push:
     tags:
@@ -26,9 +22,9 @@ jobs:
         run: npm ci
 
       - name: Build 🔨
-        run: npm run build
+        run: npm -w packages/react-substate run build
 
       - name: Publish 🚀
-        run: npm publish
+        run: npm -w packages/react-substate publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}

@@ -1,9 +1,5 @@
 name: CI
 
-defaults:
-  run:
-    working-directory: packages/react-substate
-
 on:
   push:
     branches:
@@ -31,7 +27,7 @@ jobs:
         run: npm ci
 
       - name: Build 🔨
-        run: npm run build
+        run: npm -w packages/react-substate run build
 
   #
   # Make sure it lints without errors
