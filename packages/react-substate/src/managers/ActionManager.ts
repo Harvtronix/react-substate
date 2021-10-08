@@ -12,7 +12,6 @@ import {
  *
  * @param {ActionStateModifier} stateModifier Handler function that is called to modify the state
  * during a dispatch of this action.
- *
  * @returns {keyof Actions} Identifier used to later reference this action when calling dispatch.
  */
 export function createAction (
