@@ -1,14 +1,18 @@
 {
-  "name": "react-substate",
+  "name": "react-substate-monorepo",
   "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "description": "React Substate Monorepo",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Harvtronix",
+  "license": "MIT",
+  "devDependencies": {
+    "npm-check-updates": "^11.8.5"
+  },
   "workspaces": [
-    "packages/*"
+    "packages/react-substate",
+    "packages/react-substate-examples-16",
+    "packages/react-substate-examples-17"
   ]
 }
