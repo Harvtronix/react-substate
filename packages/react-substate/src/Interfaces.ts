@@ -24,6 +24,11 @@ interface Substates {
     }
 }
 
+interface SubstateKey<Type> {
+    id: keyof Substates
+    retrieve: (substates: Substates) => Type
+}
+
 interface DevToolsState {
     [key: number]: {
         listeners: number,
@@ -54,5 +59,6 @@ export type {
     DevToolsState,
     Dispatcher,
     PatchEffectFunction,
-    Substates
+    Substates,
+    SubstateKey
 }

@@ -35,7 +35,7 @@ let actionKeyCounter: keyof Actions = 0
 /**
  * An ever-increasing index assigned to each substate created by calling `create()`.
  */
-let substateKeyCounter: keyof Substates = 0
+let substateKeyIdCounter: keyof Substates = 0
 
 //
 // Functions
@@ -51,8 +51,8 @@ function createActionKey (): keyof Actions {
 /**
  * @returns {keyof Substates} A new, unique substate key.
  */
-function createSubstateKey (): keyof Substates {
-    return substateKeyCounter++
+function createSubstateKeyId (): keyof Substates {
+    return substateKeyIdCounter++
 }
 
 export {
@@ -61,5 +61,5 @@ export {
     substates,
 
     createActionKey,
-    createSubstateKey
+    createSubstateKeyId
 }

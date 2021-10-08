@@ -5,6 +5,7 @@ import PatchEffectExample from './components/PatchEffectExample'
 import ReplaceEntireStateExample from './components/ReplaceEntireStateExample'
 import UnmountedComponentTest from './components/UnmountedComponentTest/UnmountedComponentTest'
 import DispatchOnlyExample from './components/DispatchOnlyExample'
+import TypescriptExample from './components/TypescriptExample'
 
 const App = () => {
     return (
@@ -28,6 +29,10 @@ const App = () => {
             <div>
                 <h1>Dispatch-Only Example</h1>
                 <DispatchOnlyExample />
+            </div>
+            <div>
+                <h1>Typescript Example</h1>
+                <TypescriptExample />
             </div>
         </>
     )

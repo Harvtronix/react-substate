@@ -14,14 +14,12 @@
 ## Install
 
 ```bash
-npm install react-substate [react react-dom immer]
+npm install react-substate [react react-dom]
 ```
 
 ## Basic Example
 
 ```jsx
-import React from 'react'
-
 import {
     createSubstate,
     createAction,
@@ -30,15 +28,15 @@ import {
 
 // Set up some sub-states
 const substates = {
-    test: createSubstate({field1: 'the state'}),
+    test: createSubstate({someField: 'the state'}),
     anotherTest: createSubstate({foo: 'bar'})
 }
 
 // Set up some dispatchable actions
 const actions = {
-    updateButtonText: createAction(
+    updateSomeField: createAction(
         (draft, payload) => {
-            draft.field1 = payload // Will become "the new state"
+            draft.someField = payload // Will become "the new state"
         }
     )
 }
@@ -49,14 +47,12 @@ const BasicExample = () => {
 
     return (
         <button
-            onClick={() => (dispatch(actions.updateButtonText, 'the new state'))}
+            onClick={() => (dispatch(actions.updateSomeField, 'the new state'))}
         >
-            {test.field1}
+            {test.someField}
         </button>
     )
 }
-
-export default BasicExample
 ```
 
 ## 🌟 New! React Substate now supports Redux DevTools
@@ -102,9 +98,8 @@ In addition to `useSubstate` and `useDispatch`, there's another hook called `use
 # Examples
 
 ## Patch Effect Example
-```jsx
-import React from 'react'
 
+```jsx
 import {
     createSubstate,
     createAction,
@@ -143,7 +138,7 @@ const PatchEffectExample = () => {
     usePatchEffect((patches) => {
         console.log('I am only called when "anotherTest" updates')
         console.log(patches)
-    }, substates.anotherTest)
+    }, substates.anotherTest) // this could be an array of substates, too
 
     // Create a patch effect for all substates
     usePatchEffect((patches) => {
@@ -171,8 +166,6 @@ const PatchEffectExample = () => {
         </>
     )
 }
-
-export default PatchEffectExample
 ```
 
 # API Reference

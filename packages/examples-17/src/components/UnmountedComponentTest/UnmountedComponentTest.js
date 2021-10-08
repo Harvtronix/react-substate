@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { BrowserRouter, Route, useHistory } from 'react-router-dom'
 
 import Pets from './Pets';

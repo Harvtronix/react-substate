@@ -1,7 +1,7 @@
 import produce from 'immer'
 
 import {log} from './Debug'
-import {Actions, Substates} from './Interfaces'
+import {Actions, SubstateKey} from './Interfaces'
 import {updateDevTools} from './managers/DevToolsManager'
 import {
     handlePatchesProduced,
@@ -20,20 +20,20 @@ import {
  * substate listeners being notified of the newly produced state, as well as all patch effects
  * being called.
  *
- * @param {keyof Substates} substateKey The key of the substate that will be updated.
+ * @param {SubstateKey<?>} substateKey The key of the substate that will be updated.
  * @param {keyof Actions} actionKey The action to dispatch.
  * @param {*} payload The data to pass to the action handler function.
  */
-export function dispatch (
-    substateKey: keyof Substates,
+export function dispatch <Type> (
+    substateKey: SubstateKey<Type>,
     actionKey: keyof Actions,
     payload: any
 ): void {
     log(`dispatching action ${actionKey} for substate ${substateKey}. Payload: ${payload}`)
 
     // Update the global state via immer
-    substates[substateKey].state = produce(
-        substates[substateKey].state,
+    substates[substateKey.id].state = produce(
+        substates[substateKey.id].state,
         (draft) => {
             return actions[actionKey](draft, payload)
         },
@@ -45,9 +45,9 @@ export function dispatch (
     )
 
     // Notify all substate listeners by calling their setState function
-    substates[substateKey].listeners.forEach(
+    substates[substateKey.id].listeners.forEach(
         (setState) => {
-            setState(substates[substateKey].state)
+            setState(substates[substateKey.id].state)
         }
     )
 

@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 
 import {log} from '../Debug'
-import {PatchEffectFunction, Substates} from '../Interfaces'
+import {PatchEffectFunction, SubstateKey} from '../Interfaces'
 import {
     registerPatchEffect,
     unregisterPatchEffect
@@ -13,14 +13,14 @@ import {hasSubstate} from '../managers/SubstateManager'
  *
  * @param {PatchEffectFunction} effectFunction Function to run each time patches are generated. This
  * function will receive the patches as an argument.
- * @param {keyof Substates} [substateKeys] Optional substate key to limit which patches are passed
- * to this patch effect.
+ * @param {SubstateKey | Array<SubstateKey>} [substateKeys] Optional substate key to limit which
+ * patches are passed to this patch effect.
  */
-export function usePatchEffect (
+export function usePatchEffect <Type> (
     effectFunction: PatchEffectFunction,
-    substateKeys?: keyof Substates | Array<keyof Substates>
+    substateKeys?: SubstateKey<Type> | Array<SubstateKey<Type>>
 ): void {
-    const keyList: Array<keyof Substates> = []
+    const keyList: Array<SubstateKey<Type>> = []
 
     if (substateKeys !== undefined) {
         if (Array.isArray(substateKeys)) {

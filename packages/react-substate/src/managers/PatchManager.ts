@@ -3,7 +3,7 @@ import {enablePatches} from 'immer'
 import {log} from '../Debug'
 import {
     PatchEffectFunction,
-    Substates
+    SubstateKey
 } from '../Interfaces'
 import {
     patchEffects,
@@ -18,11 +18,11 @@ let patchingEnabled = false
 /**
  * Callback function for when new patches have been produced as the result of a `dispatch()` call.
  *
- * @param {keyof Substates} substateKey Key pointing to the substate for which patches were
+ * @param {SubstateKey<?>} substateKey Key pointing to the substate for which patches were
  * produced.
  * @param {Array<any>} patches The patches array, as provided by immer.
  */
-function handlePatchesProduced (substateKey: keyof Substates, patches: Array<any>): void {
+function handlePatchesProduced <Type> (substateKey: SubstateKey<Type>, patches: Array<any>): void {
     if (patches.length === 0) {
         return
     }
@@ -33,7 +33,7 @@ function handlePatchesProduced (substateKey: keyof Substates, patches: Array<any
     })
 
     // Fire all global patch effects
-    substates[substateKey].patchEffects.forEach((patchEffectFunction) => {
+    substates[substateKey.id].patchEffects.forEach((patchEffectFunction) => {
         patchEffectFunction(patches)
     })
 }
@@ -66,19 +66,19 @@ function isPatchingEnabled (): boolean {
  * receive patches produced for all registered substates.
  *
  * @param {PatchEffectFunction} effectFunction Function to call upon receiving new patches.
- * @param {keyof Substates} [substateKey] Optional substate key to scope the registration to a
+ * @param {SubstateKey<?>} [substateKey] Optional substate key to scope the registration to a
  * single substate's patches.
  */
-function registerPatchEffect (
+function registerPatchEffect <Type> (
     effectFunction: PatchEffectFunction,
-    substateKey?: keyof Substates
+    substateKey?: SubstateKey<Type>
 ): void {
     // Turn on patching
     ensurePatchingEnabled()
 
     if (substateKey !== undefined) {
         // Substate key was provided. Register with specific substate
-        substates[substateKey].patchEffects.push(effectFunction)
+        substates[substateKey.id].patchEffects.push(effectFunction)
     } else {
         // Substate key was not provided. Register patch effect globally
         patchEffects.push(effectFunction)
@@ -89,17 +89,17 @@ function registerPatchEffect (
  * Unregisters a previously registered patch effect.
  *
  * @param {PatchEffectFunction} effectFunction The function to unregister.
- * @param {keyof Substates} [substateKey] The optional substate under which this effectFunction was
+ * @param {SubstateKey<?>} [substateKey] The optional substate under which this effectFunction was
  * registered. If omitted, it is assumed to have been globally registered.
  */
-function unregisterPatchEffect (
+function unregisterPatchEffect <Type> (
     effectFunction: PatchEffectFunction,
-    substateKey?: keyof Substates
+    substateKey?: SubstateKey<Type>
 ): void {
     if (substateKey !== undefined) {
         // Substate key was provided. Unregister from specific substate
-        substates[substateKey].patchEffects =
-            substates[substateKey].patchEffects.filter(
+        substates[substateKey.id].patchEffects =
+            substates[substateKey.id].patchEffects.filter(
                 (ef: PatchEffectFunction) => (ef !== effectFunction)
             )
     } else {

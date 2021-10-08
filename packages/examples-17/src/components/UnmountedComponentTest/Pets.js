@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useSubstate } from 'react-substate'
 
 import substates from './substates'
