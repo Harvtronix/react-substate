@@ -1,6 +1,6 @@
 {
   "name": "react-substate",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,8 +9,6 @@
   "author": "",
   "license": "ISC",
   "workspaces": [
-    "packages/react-substate",
-    "packages/react-substate-examples-16",
-    "packages/react-substate-examples-17"
+    "packages/*"
   ]
 }
