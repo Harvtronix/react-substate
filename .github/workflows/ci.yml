@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node 🏗️
         uses: actions/setup-node@master
         with:
-          node-version: 13.x
+          node-version: 16.x
 
       - name: Checkout 🛎️
         uses: actions/checkout@master
@@ -27,7 +27,7 @@ jobs:
         run: npm ci
 
       - name: Build 🔨
-        run: npm run build
+        run: npm --workspace packages/react-substate run build
 
   #
   # Make sure it lints without errors
@@ -38,7 +38,7 @@ jobs:
       - name: Setup Node 🏗️
         uses: actions/setup-node@master
         with:
-          node-version: 13.x
+          node-version: 16.x
 
       - name: Checkout 🛎️
         uses: actions/checkout@master
@@ -47,4 +47,4 @@ jobs:
         run: npm ci
 
       - name: Lint 👀
-        run: npm run ci-lint
+        run: npm --workspaces run ci-lint

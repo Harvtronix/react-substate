@@ -1,0 +1,65 @@
+{
+  "name": "react-substate",
+  "author": "Harvtronix",
+  "version": "4.1.1",
+  "license": "MIT",
+  "description": "Blazing-fast, centralized state management with auto-guaranteed, immutable state changes",
+  "keywords": [
+    "react",
+    "state",
+    "immer",
+    "hooks",
+    "redux"
+  ],
+  "bugs": {
+    "url": "https://github.com/Harvtronix/react-substate/issues"
+  },
+  "homepage": "https://github.com/Harvtronix/react-substate#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Harvtronix/react-substate.git"
+  },
+  "source": "src/index.ts",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "scripts": {
+    "build": "npm-run-all clean rollup",
+    "build-all": "npm-run-all ci-* build",
+    "build-quick": "npm-run-all rollup",
+    "develop": "nodemon --ext ts,tsx,js,tsx --ignore dist/ --exec npm run build-quick",
+    "clean": "rimraf dist",
+    "ci-lint": "eslint --ext .ts,.tsx,.js,.jsx --max-warnings 0 .",
+    "rollup": "rollup -c rollup.config.js"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.27",
+    "@types/react-dom": "^17.0.9",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsdoc": "^36.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-standard": "^4.1.0",
+    "nodemon": "^2.0.13",
+    "npm-run-all": "^4.1.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.58.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "typescript": "^4.4.3"
+  },
+  "peerDependencies": {
+    "react": "^16.14 || ^17",
+    "react-dom": "^16.14 || ^17"
+  },
+  "dependencies": {
+    "immer": "^9.0.6"
+  }
+}

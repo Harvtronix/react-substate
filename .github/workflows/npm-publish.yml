@@ -12,7 +12,7 @@ jobs:
       - name: Setup Node 🏗️
         uses: actions/setup-node@master
         with:
-          node-version: 13.x
+          node-version: 16.x
           registry-url: https://registry.npmjs.org/
 
       - name: Checkout 🛎️
@@ -22,9 +22,9 @@ jobs:
         run: npm ci
 
       - name: Build 🔨
-        run: npm run build
+        run: npm --workspace packages/react-substate run build
 
       - name: Publish 🚀
-        run: npm publish
+        run: npm --workspace packages/react-substate publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
