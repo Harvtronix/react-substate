@@ -1,5 +1,9 @@
 name: Publish to NPM
 
+defaults:
+  run:
+    working-directory: packages/react-substate
+
 on:
   push:
     tags:
@@ -12,7 +16,7 @@ jobs:
       - name: Setup Node 🏗️
         uses: actions/setup-node@master
         with:
-          node-version: 13.x
+          node-version: 16.x
           registry-url: https://registry.npmjs.org/
 
       - name: Checkout 🛎️
