@@ -194,7 +194,9 @@ Hook that allows a component to receive a reference to a dispatch function that 
 Hook that allows a component to receive patches each time a substate is updated.
 
 # Peer Dependencies
-This module has peer dependencies on `react 16`, `react-dom 16`, and `immer 8`.
+This module has peer dependencies on:
+- `react` version 16 (with hooks support) or 17.
+- `react-dom` version 16 or 17.
 
 # License
 
