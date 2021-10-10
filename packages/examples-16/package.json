@@ -49,6 +49,7 @@
     "react-dev-utils": "^11.0.4",
     "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
+    "react-substate": "^4.2.1",
     "resolve": "1.15.0",
     "resolve-url-loader": "^3.1.2",
     "sass-loader": "8.0.2",
@@ -138,13 +139,5 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "author": "Harvtronix",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Harvtronix/react-substate.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Harvtronix/react-substate/issues"
-  },
-  "homepage": "https://github.com/Harvtronix/react-substate#readme"
+  "license": "MIT"
 }
