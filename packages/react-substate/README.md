@@ -175,7 +175,7 @@ const PatchEffectExample = () => {
 Creates and registers a new substate with the given initial data. Returns an identifier for the substate.
 
 `createAction`
-Registers a new dispatchable action to modify a substate. Returns an identifier used to later reference this action when calling dispatch.
+Registers a new dispatchable action to modify a substate. Returns an identifier used later to reference this action when calling dispatch.
 
 `setDebugEnabled`
 Turns on/off logging of debug statements to the Javascript console.
