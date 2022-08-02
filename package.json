@@ -9,10 +9,10 @@
   "author": "Harvtronix",
   "license": "MIT",
   "devDependencies": {
-    "npm-check-updates": "^11.8.5"
+    "npm-check-updates": "^16.0.5"
   },
   "workspaces": [
     "packages/react-substate",
-    "packages/examples-17"
+    "packages/examples-18"
   ]
 }

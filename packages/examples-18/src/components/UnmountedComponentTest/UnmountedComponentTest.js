@@ -1,23 +1,25 @@
 import { useState } from 'react'
-import { BrowserRouter, Route, useHistory } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
 
 import Pets from './Pets';
 import Pet from './Pet';
 
 const WithRouting = () => {
     const [showPets, setShowPets] = useState(true)
-    const history = useHistory()
+    const nav = useNavigate()
 
     const toggle = () => {
         setShowPets(state => !state);
-        history.goBack()
+        nav(-1)
     };
 
     return (
         <div>
             <button onClick={toggle}>{showPets ? "hide" : "show"}</button>
             {showPets && <Pets />}
-            <Route path='/pet' component={Pet} />
+            <Routes>
+                <Route path='/pet' component={Pet} />
+            </Routes>
         </div>
     )
 }
