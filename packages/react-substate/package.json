@@ -19,6 +19,7 @@
     "type": "git",
     "url": "git+ssh://git@github.com/Harvtronix/react-substate.git"
   },
+  "type": "module",
   "exports": {
     "import": "./dist/index.mjs",
     "require": "./dist/index.cjs",
