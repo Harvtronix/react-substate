@@ -2,12 +2,12 @@ import {enablePatches} from 'immer'
 
 import {log} from '../Debug'
 import {
-    PatchEffectFunction,
-    SubstateKey
+  PatchEffectFunction,
+  SubstateKey
 } from '../Interfaces'
 import {
-    patchEffects,
-    substates
+  patchEffects,
+  substates
 } from '../Registry'
 
 /**
@@ -23,19 +23,19 @@ let patchingEnabled = false
  * @param {Array<any>} patches The patches array, as provided by immer.
  */
 function handlePatchesProduced <Type> (substateKey: SubstateKey<Type>, patches: Array<any>): void {
-    if (patches.length === 0) {
-        return
-    }
+  if (patches.length === 0) {
+    return
+  }
 
-    // Fire all substate-specific patch effects
-    patchEffects.forEach((patchEffectFunction) => {
-        patchEffectFunction(patches)
-    })
+  // Fire all substate-specific patch effects
+  patchEffects.forEach((patchEffectFunction) => {
+    patchEffectFunction(patches)
+  })
 
-    // Fire all global patch effects
-    substates[substateKey.id].patchEffects.forEach((patchEffectFunction) => {
-        patchEffectFunction(patches)
-    })
+  // Fire all global patch effects
+  substates[substateKey.id].patchEffects.forEach((patchEffectFunction) => {
+    patchEffectFunction(patches)
+  })
 }
 
 /**
@@ -43,21 +43,21 @@ function handlePatchesProduced <Type> (substateKey: SubstateKey<Type>, patches: 
  * patch effect is registered.
  */
 function ensurePatchingEnabled (): void {
-    if (patchingEnabled) {
-        return
-    }
+  if (patchingEnabled) {
+    return
+  }
 
-    log('Enabling patch support in immer')
+  log('Enabling patch support in immer')
 
-    enablePatches()
-    patchingEnabled = true
+  enablePatches()
+  patchingEnabled = true
 }
 
 /**
  * @returns {boolean} Whether or not immer patching has been enabled.
  */
 function isPatchingEnabled (): boolean {
-    return patchingEnabled
+  return patchingEnabled
 }
 
 /**
@@ -70,19 +70,19 @@ function isPatchingEnabled (): boolean {
  * single substate's patches.
  */
 function registerPatchEffect <Type> (
-    effectFunction: PatchEffectFunction,
-    substateKey?: SubstateKey<Type>
+  effectFunction: PatchEffectFunction,
+  substateKey?: SubstateKey<Type>
 ): void {
-    // Turn on patching
-    ensurePatchingEnabled()
+  // Turn on patching
+  ensurePatchingEnabled()
 
-    if (substateKey !== undefined) {
-        // Substate key was provided. Register with specific substate
-        substates[substateKey.id].patchEffects.push(effectFunction)
-    } else {
-        // Substate key was not provided. Register patch effect globally
-        patchEffects.push(effectFunction)
-    }
+  if (substateKey !== undefined) {
+    // Substate key was provided. Register with specific substate
+    substates[substateKey.id].patchEffects.push(effectFunction)
+  } else {
+    // Substate key was not provided. Register patch effect globally
+    patchEffects.push(effectFunction)
+  }
 }
 
 /**
@@ -93,28 +93,28 @@ function registerPatchEffect <Type> (
  * registered. If omitted, it is assumed to have been globally registered.
  */
 function unregisterPatchEffect <Type> (
-    effectFunction: PatchEffectFunction,
-    substateKey?: SubstateKey<Type>
+  effectFunction: PatchEffectFunction,
+  substateKey?: SubstateKey<Type>
 ): void {
-    if (substateKey !== undefined) {
-        // Substate key was provided. Unregister from specific substate
-        substates[substateKey.id].patchEffects =
+  if (substateKey !== undefined) {
+    // Substate key was provided. Unregister from specific substate
+    substates[substateKey.id].patchEffects =
             substates[substateKey.id].patchEffects.filter(
-                (ef: PatchEffectFunction) => (ef !== effectFunction)
+              (ef: PatchEffectFunction) => (ef !== effectFunction)
             )
-    } else {
-        // Substate key was not provided. Unregister globally
-        const remainingPatchEffects = patchEffects.filter(
-            (ef: PatchEffectFunction) => (ef !== effectFunction)
-        )
-        // Clear the array and replace with the remaining patch effects
-        patchEffects.splice(0, patchEffects.length, ...remainingPatchEffects)
-    }
+  } else {
+    // Substate key was not provided. Unregister globally
+    const remainingPatchEffects = patchEffects.filter(
+      (ef: PatchEffectFunction) => (ef !== effectFunction)
+    )
+    // Clear the array and replace with the remaining patch effects
+    patchEffects.splice(0, patchEffects.length, ...remainingPatchEffects)
+  }
 }
 
 export {
-    handlePatchesProduced,
-    isPatchingEnabled,
-    registerPatchEffect,
-    unregisterPatchEffect
+  handlePatchesProduced,
+  isPatchingEnabled,
+  registerPatchEffect,
+  unregisterPatchEffect
 }

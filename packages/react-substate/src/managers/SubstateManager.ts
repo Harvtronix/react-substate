@@ -1,7 +1,7 @@
 import {SubstateKey, Substates} from '../Interfaces'
 import {
-    createSubstateKeyId,
-    substates
+  createSubstateKeyId,
+  substates
 } from '../Registry'
 import {updateDevTools} from './DevToolsManager'
 
@@ -11,29 +11,31 @@ import {updateDevTools} from './DevToolsManager'
  * @param {*} initialData Initial data to be set in the substate.
  * @returns {SubstateKey<?>} Identifier used to later reference this substate.
  */
-function createSubstate <Type> (initialData: Type): SubstateKey<Type> {
-    const substateKey = createSubstateKeyId()
+function createSubstate <Type extends Substates[any]['state']> (
+  initialData: Type
+): SubstateKey<Type> {
+  const substateKey = createSubstateKeyId()
 
-    // Create and register the actual substate
-    substates[substateKey] = {
-        listeners: [],
-        patchEffects: [],
-        state: initialData
-    }
+  // Create and register the actual substate
+  substates[substateKey] = {
+    listeners: [],
+    patchEffects: [],
+    state: initialData
+  }
 
-    // Notify the DevTools
-    updateDevTools('Create Substate')
+  // Notify the DevTools
+  updateDevTools('Create Substate')
 
-    return {
-        id: substateKey,
-        /**
-         * Returns a substate of the specified type with a given identifier.
-         *
-         * @param {Substates} haystack The current set of substates in which to search.
-         * @returns {?} A substate of the specified type.
-         */
-        retrieve: (haystack: Substates): Type => (haystack[substateKey].state as Type)
-    }
+  return {
+    id: substateKey,
+    /**
+     * Returns a substate of the specified type with a given identifier.
+     *
+     * @param {Substates} haystack The current set of substates in which to search.
+     * @returns {?} A substate of the specified type.
+     */
+    retrieve: (haystack: Substates): Type => (haystack[substateKey].state as Type)
+  }
 }
 
 /**
@@ -44,10 +46,10 @@ function createSubstate <Type> (initialData: Type): SubstateKey<Type> {
  * @returns {any} The substate.
  */
 function getSubstate <Type> (substateKey: SubstateKey<Type>): Type {
-    if (!hasSubstate(substateKey)) {
-        throw new Error(`Substate key ${substateKey} not registered`)
-    }
-    return substateKey.retrieve(substates)
+  if (!hasSubstate(substateKey)) {
+    throw new Error(`Substate key ${substateKey} not registered`)
+  }
+  return substateKey.retrieve(substates)
 }
 
 /**
@@ -57,7 +59,7 @@ function getSubstate <Type> (substateKey: SubstateKey<Type>): Type {
  * @returns {boolean} true if a substate exists for the provided key; false otherwise.
  */
 function hasSubstate <Type> (substateKey: SubstateKey<Type>): boolean {
-    return substateKey.id in substates
+  return substateKey.id in substates
 }
 
 /**
@@ -69,9 +71,9 @@ function hasSubstate <Type> (substateKey: SubstateKey<Type>): boolean {
  * `substateKey` is updated. This is typically obtained by calling the `useState` hook.
  */
 function registerListener <Type> (
-    substateKey: SubstateKey<Type>, setStateFunction: Function
+  substateKey: SubstateKey<Type>, setStateFunction: Function
 ): void {
-    substates[substateKey.id].listeners.push(setStateFunction)
+  substates[substateKey.id].listeners.push(setStateFunction)
 }
 
 /**
@@ -83,16 +85,16 @@ function registerListener <Type> (
  * typically one obtained by calling the `useState` hook.
  */
 function unregisterListener <Type> (
-    substateKey: SubstateKey<Type>, setStateFunction: Function
+  substateKey: SubstateKey<Type>, setStateFunction: Function
 ): void {
-    substates[substateKey.id].listeners =
+  substates[substateKey.id].listeners =
         substates[substateKey.id].listeners.filter((li) => (li !== setStateFunction))
 }
 
 export {
-    createSubstate,
-    hasSubstate,
-    getSubstate,
-    registerListener,
-    unregisterListener
+  createSubstate,
+  hasSubstate,
+  getSubstate,
+  registerListener,
+  unregisterListener
 }

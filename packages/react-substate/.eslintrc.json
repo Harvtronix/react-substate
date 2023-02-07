@@ -1,56 +1,57 @@
 {
-    "env": {
-        "browser": true,
-        "es6": true
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "plugin:jsdoc/recommended",
+    "plugin:react/recommended",
+    "standard"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "plugin:jsdoc/recommended",
-        "plugin:react/recommended",
-        "standard"
-    ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "jsdoc",
-        "react",
-        "simple-import-sort",
-        "@typescript-eslint"
-    ],
-    "rules": {
-        "indent": ["warn", 4],
-        "jsdoc/require-jsdoc": ["warn", {
-            "require": {
-                "ArrowFunctionExpression": true,
-                "ClassDeclaration": true,
-                "ClassExpression": true,
-                "FunctionDeclaration": true,
-                "FunctionExpression": true
-            }
-        }],
-        "max-len": ["warn", 100],
-        "no-undef": "off",
-        "no-unused-vars": "off",
-        "object-curly-spacing": ["warn", "never"],
-        "simple-import-sort/imports": "warn",
-        "@typescript-eslint/no-unused-vars": ["error", {
-            "vars": "all",
-            "args": "after-used",
-            "ignoreRestSiblings": false
-        }]
-    },
-    "settings": {
-        "react": {
-            "version": "detect"
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": ["jsdoc", "react", "simple-import-sort", "@typescript-eslint"],
+  "rules": {
+    "indent": ["warn", 2],
+    "jsdoc/require-jsdoc": [
+      "warn",
+      {
+        "require": {
+          "ArrowFunctionExpression": true,
+          "ClassDeclaration": true,
+          "ClassExpression": true,
+          "FunctionDeclaration": true,
+          "FunctionExpression": true
         }
+      }
+    ],
+    "max-len": ["warn", 100],
+    "no-undef": "off",
+    "no-unused-vars": "off",
+    "object-curly-spacing": ["warn", "never"],
+    "simple-import-sort/imports": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
     }
+  }
 }

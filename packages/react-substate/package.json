@@ -19,9 +19,11 @@
     "type": "git",
     "url": "git+ssh://git@github.com/Harvtronix/react-substate.git"
   },
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
   "source": "src/index.ts",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.es.js",
   "scripts": {
     "build": "npm-run-all clean rollup",
     "build-all": "npm-run-all ci-* build",

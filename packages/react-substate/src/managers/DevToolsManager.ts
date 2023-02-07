@@ -1,9 +1,9 @@
 import {
-    Actions,
-    DevTools,
-    DevToolsOperation,
-    DevToolsState,
-    Substates
+  Actions,
+  DevTools,
+  DevToolsOperation,
+  DevToolsState,
+  Substates
 } from '../Interfaces'
 import {actions, substates} from '../Registry'
 
@@ -15,8 +15,8 @@ let isDevToolsEnabled = false
 // Obtain a handle to the DevTools extension if it exists
 const w = typeof window !== 'undefined' ? (window as any) : null
 const devTools = w && w.__REDUX_DEVTOOLS_EXTENSION__
-    ? w.__REDUX_DEVTOOLS_EXTENSION__.connect() as DevTools
-    : null
+  ? w.__REDUX_DEVTOOLS_EXTENSION__.connect() as DevTools
+  : null
 
 /**
  * Turns on/off logging of state changes to the DevTools browser extension.
@@ -24,15 +24,15 @@ const devTools = w && w.__REDUX_DEVTOOLS_EXTENSION__
  * @param {boolean} isEnabled Indicates whether or not to turn on DevTools logging.
  */
 function setDevToolsEnabled (isEnabled: boolean) {
-    if (!devTools) {
-        return
-    }
+  if (!devTools) {
+    return
+  }
 
-    isDevToolsEnabled = isEnabled
+  isDevToolsEnabled = isEnabled
 
-    if (isDevToolsEnabled) {
-        devTools.init(transformState(substates))
-    }
+  if (isDevToolsEnabled) {
+    devTools.init(transformState(substates))
+  }
 }
 
 /**
@@ -42,17 +42,17 @@ function setDevToolsEnabled (isEnabled: boolean) {
  * @returns {DevToolsState} The transformed state.
  */
 function transformState (state: Substates): DevToolsState {
-    const result: DevToolsState = {}
+  const result: DevToolsState = {}
 
-    for (const key in state) {
-        result[key] = ({
-            listeners: state[key].listeners.length,
-            patchEffects: state[key].patchEffects.length,
-            state: state[key].state
-        })
-    }
+  for (const key in state) {
+    result[key] = ({
+      listeners: state[key].listeners.length,
+      patchEffects: state[key].patchEffects.length,
+      state: state[key].state
+    })
+  }
 
-    return result
+  return result
 }
 
 /**
@@ -63,18 +63,18 @@ function transformState (state: Substates): DevToolsState {
  * @param {keyof Actions?} actionKey An optional action key associated with a `dispatch` call.
  */
 function updateDevTools (operation: DevToolsOperation, actionKey?: keyof Actions) {
-    if (!devTools || !isDevToolsEnabled) {
-        return
-    }
+  if (!devTools || !isDevToolsEnabled) {
+    return
+  }
 
-    const action = actionKey !== undefined
-        ? `${operation} Action ${actionKey}: ${actions[actionKey]}`
-        : operation
+  const action = actionKey !== undefined
+    ? `${operation} Action ${actionKey}: ${actions[actionKey]}`
+    : operation
 
-    devTools.send(action, transformState(substates))
+  devTools.send(action, transformState(substates))
 }
 
 export {
-    setDevToolsEnabled,
-    updateDevTools
+  setDevToolsEnabled,
+  updateDevTools
 }

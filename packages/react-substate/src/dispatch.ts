@@ -4,12 +4,12 @@ import {log} from './Debug'
 import {Actions, SubstateKey} from './Interfaces'
 import {updateDevTools} from './managers/DevToolsManager'
 import {
-    handlePatchesProduced,
-    isPatchingEnabled
+  handlePatchesProduced,
+  isPatchingEnabled
 } from './managers/PatchManager'
 import {
-    actions,
-    substates
+  actions,
+  substates
 } from './Registry'
 
 /**
@@ -25,32 +25,32 @@ import {
  * @param {*} payload The data to pass to the action handler function.
  */
 export function dispatch <Type> (
-    substateKey: SubstateKey<Type>,
-    actionKey: keyof Actions,
-    payload: any
+  substateKey: SubstateKey<Type>,
+  actionKey: keyof Actions,
+  payload: any
 ): void {
-    log(`dispatching action ${actionKey} for substate ${substateKey}. Payload: ${payload}`)
+  log(`dispatching action ${actionKey} for substate ${substateKey}. Payload: ${payload}`)
 
-    // Update the global state via immer
-    substates[substateKey.id].state = produce(
-        substates[substateKey.id].state,
-        (draft) => {
-            return actions[actionKey](draft, payload)
-        },
-        // Immer will throw an error if a third arg is passed with patching disabled, so use
-        // `undefined` to make it seem like there's no additional arg
-        isPatchingEnabled()
-            ? (patches) => { handlePatchesProduced(substateKey, patches) }
-            : undefined
-    )
+  // Update the global state via immer
+  substates[substateKey.id].state = produce(
+    substates[substateKey.id].state,
+    (draft) => {
+      return actions[actionKey](draft, payload)
+    },
+    // Immer will throw an error if a third arg is passed with patching disabled, so use
+    // `undefined` to make it seem like there's no additional arg
+    isPatchingEnabled()
+      ? (patches) => { handlePatchesProduced(substateKey, patches) }
+      : undefined
+  )
 
-    // Notify all substate listeners by calling their setState function
-    substates[substateKey.id].listeners.forEach(
-        (setState) => {
-            setState(substates[substateKey.id].state)
-        }
-    )
+  // Notify all substate listeners by calling their setState function
+  substates[substateKey.id].listeners.forEach(
+    (setState) => {
+      setState(substates[substateKey.id].state)
+    }
+  )
 
-    // Notify the DevTools
-    updateDevTools('Dispatch', actionKey)
+  // Notify the DevTools
+  updateDevTools('Dispatch', actionKey)
 }

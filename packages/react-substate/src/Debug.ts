@@ -9,9 +9,9 @@ let isDebugEnabled: boolean = false
  * @param {*} val The object to be logged.
  */
 function log (val: any) {
-    if (isDebugEnabled) {
-        console.log(val)
-    }
+  if (isDebugEnabled) {
+    console.log(val)
+  }
 }
 
 /**
@@ -21,12 +21,12 @@ function log (val: any) {
  * console.
  */
 function setDebugEnabled (isEnabled: boolean) {
-    isDebugEnabled = isEnabled
+  isDebugEnabled = isEnabled
 
-    log('react-substate debug mode enabled')
+  log('react-substate debug mode enabled')
 }
 
 export {
-    log,
-    setDebugEnabled
+  log,
+  setDebugEnabled
 }

@@ -3,10 +3,10 @@ import {useEffect, useState} from 'react'
 import {log} from '../Debug'
 import {Dispatcher, SubstateKey} from '../Interfaces'
 import {
-    getSubstate,
-    hasSubstate,
-    registerListener,
-    unregisterListener
+  getSubstate,
+  hasSubstate,
+  registerListener,
+  unregisterListener
 } from '../managers/SubstateManager'
 import {useDispatch} from './useDispatch'
 
@@ -20,26 +20,26 @@ import {useDispatch} from './useDispatch'
  * is a dispatch function that can be called to update the substate.
  */
 export function useSubstate <Type> (substateKey: SubstateKey<Type>): [Type, Dispatcher] {
-    if (!hasSubstate(substateKey)) {
-        throw new Error('No substate found with key ' + substateKey)
+  if (!hasSubstate(substateKey)) {
+    throw new Error('No substate found with key ' + substateKey)
+  }
+
+  const dispatch = useDispatch(substateKey)
+
+  const [, setState] = useState()
+
+  useEffect(() => {
+    log('Registering listener for ' + substateKey)
+    registerListener(substateKey, setState)
+
+    return () => {
+      log('Unregistering listener for ' + substateKey)
+      unregisterListener(substateKey, setState)
     }
+  }, [substateKey, setState])
 
-    const dispatch = useDispatch(substateKey)
-
-    const [, setState] = useState()
-
-    useEffect(() => {
-        log('Registering listener for ' + substateKey)
-        registerListener(substateKey, setState)
-
-        return () => {
-            log('Unregistering listener for ' + substateKey)
-            unregisterListener(substateKey, setState)
-        }
-    }, [substateKey, setState])
-
-    return [
-        getSubstate(substateKey),
-        dispatch
-    ]
+  return [
+    getSubstate(substateKey),
+    dispatch
+  ]
 }

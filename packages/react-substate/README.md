@@ -21,37 +21,37 @@ npm install react-substate [react react-dom]
 
 ```jsx
 import {
-    createSubstate,
-    createAction,
-    useSubstate
+  createSubstate,
+  createAction,
+  useSubstate
 } from 'react-substate'
 
 // Set up some sub-states
 const substates = {
-    test: createSubstate({someField: 'the state'}),
-    anotherTest: createSubstate({foo: 'bar'})
+  test: createSubstate({someField: 'the state'}),
+  anotherTest: createSubstate({foo: 'bar'})
 }
 
 // Set up some dispatchable actions
 const actions = {
-    updateSomeField: createAction(
-        (draft, payload) => {
-            draft.someField = payload // Will become "the new state"
-        }
-    )
+  updateSomeField: createAction(
+    (draft, payload) => {
+      draft.someField = payload // Will become "the new state"
+    }
+  )
 }
 
 // Use it like you would `useReducer` or `useState`
 const BasicExample = () => {
-    const [test, dispatch] = useSubstate(substates.test)
+  const [test, dispatch] = useSubstate(substates.test)
 
-    return (
-        <button
-            onClick={() => (dispatch(actions.updateSomeField, 'the new state'))}
-        >
-            {test.someField}
-        </button>
-    )
+  return (
+    <button
+      onClick={() => (dispatch(actions.updateSomeField, 'the new state'))}
+    >
+      {test.someField}
+    </button>
+  )
 }
 ```
 
@@ -101,70 +101,70 @@ In addition to `useSubstate` and `useDispatch`, there's another hook called `use
 
 ```jsx
 import {
-    createSubstate,
-    createAction,
-    useDispatch,
-    usePatchEffect,
-    useSubstate
+  createSubstate,
+  createAction,
+  useDispatch,
+  usePatchEffect,
+  useSubstate
 } from 'react-substate'
 
 const substates = {
-    test: createSubstate({field1: 'the state'}),
-    anotherTest: createSubstate({foo: 'bar'})
+  test: createSubstate({field1: 'the state'}),
+  anotherTest: createSubstate({foo: 'bar'})
 }
 
 const actions = {
-    test: {
-        updateButtonText: createAction(
-            (draft, payload) => {
-                draft.field1 = payload // Will become "the new state"
-            }
-        )
-    },
-    anotherTest: {
-        updateOtherButtonText: createAction(
-            (draft, payload) => {
-                draft.foo = payload // Will become "baz"
-            }
-        )
-    }
+  test: {
+    updateButtonText: createAction(
+      (draft, payload) => {
+        draft.field1 = payload // Will become "the new state"
+      }
+    )
+  },
+  anotherTest: {
+    updateOtherButtonText: createAction(
+      (draft, payload) => {
+        draft.foo = payload // Will become "baz"
+      }
+    )
+  }
 }
 
 const PatchEffectExample = () => {
-    const [test, testDispatch] = useSubstate(substates.test)
-    const anotherTestDispatch = useDispatch(substates.anotherTest)
+  const [test, testDispatch] = useSubstate(substates.test)
+  const anotherTestDispatch = useDispatch(substates.anotherTest)
 
-    // Create a patch effect for a single substate
-    usePatchEffect((patches) => {
-        console.log('I am only called when "anotherTest" updates')
-        console.log(patches)
-    }, substates.anotherTest) // this could be an array of substates, too
+  // Create a patch effect for a single substate
+  usePatchEffect((patches) => {
+    console.log('I am only called when "anotherTest" updates')
+    console.log(patches)
+  }, substates.anotherTest) // this could be an array of substates, too
 
-    // Create a patch effect for all substates
-    usePatchEffect((patches) => {
-        console.log('I am called when any substate updates')
-        console.log(patches)
-    })
+  // Create a patch effect for all substates
+  usePatchEffect((patches) => {
+    console.log('I am called when any substate updates')
+    console.log(patches)
+  })
 
-    return (
-        <>
-            <button
-                onClick={() => (
-                    testDispatch(actions.test.updateButtonText, 'the new state')
-                )}
-            >
-                {test.field1}
-            </button>
+  return (
+    <>
+      <button
+        onClick={() => (
+          testDispatch(actions.test.updateButtonText, 'the new state')
+        )}
+      >
+        {test.field1}
+      </button>
 
-            <button
-                onClick={() => (
-                    anotherTestDispatch(actions.anotherTest.updateOtherButtonText, 'baz')
-                )}
-            >
-                Dispatch action to update "anotherTest"
-            </button>
-        </>
-    )
+      <button
+        onClick={() => (
+          anotherTestDispatch(actions.anotherTest.updateOtherButtonText, 'baz')
+        )}
+      >
+        Dispatch action to update "anotherTest"
+      </button>
+    </>
+  )
 }
 ```
 
@@ -195,8 +195,8 @@ Hook that allows a component to receive patches each time a substate is updated.
 
 # Peer Dependencies
 This module has peer dependencies on:
-- `react` version 16 (with hooks support) or 17.
-- `react-dom` version 16 or 17.
+- `react` version 16 (with hooks support) or higher.
+- `react-dom` version 16 or higher.
 
 # License
 

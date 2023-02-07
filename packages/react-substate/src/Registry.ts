@@ -1,7 +1,7 @@
 import {
-    Actions,
-    PatchEffectFunction,
-    Substates
+  Actions,
+  PatchEffectFunction,
+  Substates
 } from './Interfaces'
 
 //
@@ -45,21 +45,21 @@ let substateKeyIdCounter: keyof Substates = 0
  * @returns {keyof Actions} A new, unique action key.
  */
 function createActionKey (): keyof Actions {
-    return actionKeyCounter++
+  return actionKeyCounter++
 }
 
 /**
  * @returns {keyof Substates} A new, unique substate key.
  */
 function createSubstateKeyId (): keyof Substates {
-    return substateKeyIdCounter++
+  return substateKeyIdCounter++
 }
 
 export {
-    actions,
-    patchEffects,
-    substates,
+  actions,
+  patchEffects,
+  substates,
 
-    createActionKey,
-    createSubstateKeyId
+  createActionKey,
+  createSubstateKeyId
 }

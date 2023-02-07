@@ -1,10 +1,10 @@
 import {
-    Actions,
-    ActionStateModifier
+  Actions,
+  ActionStateModifier
 } from '../Interfaces'
 import {
-    actions,
-    createActionKey
+  actions,
+  createActionKey
 } from '../Registry'
 
 /**
@@ -15,11 +15,11 @@ import {
  * @returns {keyof Actions} Identifier used to later reference this action when calling dispatch.
  */
 export function createAction (
-    stateModifier: ActionStateModifier
+  stateModifier: ActionStateModifier
 ): keyof Actions {
-    const actionKey = createActionKey()
+  const actionKey = createActionKey()
 
-    actions[actionKey] = stateModifier
+  actions[actionKey] = stateModifier
 
-    return actionKey
+  return actionKey
 }

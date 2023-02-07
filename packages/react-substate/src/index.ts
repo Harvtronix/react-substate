@@ -7,23 +7,23 @@ import {setDevToolsEnabled} from './managers/DevToolsManager'
 import {createSubstate} from './managers/SubstateManager'
 
 export default {
-    createAction,
-    createSubstate,
-    setDebugEnabled,
-    setDevToolsEnabled,
+  createAction,
+  createSubstate,
+  setDebugEnabled,
+  setDevToolsEnabled,
 
-    useDispatch,
-    usePatchEffect,
-    useSubstate
+  useDispatch,
+  usePatchEffect,
+  useSubstate
 }
 
 export {
-    createAction,
-    createSubstate,
-    setDebugEnabled,
-    setDevToolsEnabled,
+  createAction,
+  createSubstate,
+  setDebugEnabled,
+  setDevToolsEnabled,
 
-    useDispatch,
-    usePatchEffect,
-    useSubstate
+  useDispatch,
+  usePatchEffect,
+  useSubstate
 }

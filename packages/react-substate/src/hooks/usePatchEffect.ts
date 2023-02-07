@@ -3,8 +3,8 @@ import {useEffect} from 'react'
 import {log} from '../Debug'
 import {PatchEffectFunction, SubstateKey} from '../Interfaces'
 import {
-    registerPatchEffect,
-    unregisterPatchEffect
+  registerPatchEffect,
+  unregisterPatchEffect
 } from '../managers/PatchManager'
 import {hasSubstate} from '../managers/SubstateManager'
 
@@ -17,52 +17,52 @@ import {hasSubstate} from '../managers/SubstateManager'
  * patches are passed to this patch effect.
  */
 export function usePatchEffect <Type> (
-    effectFunction: PatchEffectFunction,
-    substateKeys?: SubstateKey<Type> | Array<SubstateKey<Type>>
+  effectFunction: PatchEffectFunction,
+  substateKeys?: SubstateKey<Type> | Array<SubstateKey<Type>>
 ): void {
-    const keyList: Array<SubstateKey<Type>> = []
+  const keyList: Array<SubstateKey<Type>> = []
 
-    if (substateKeys !== undefined) {
-        if (Array.isArray(substateKeys)) {
-            keyList.splice(0, 0, ...substateKeys)
-        } else {
-            keyList.push(substateKeys)
-        }
+  if (substateKeys !== undefined) {
+    if (Array.isArray(substateKeys)) {
+      keyList.splice(0, 0, ...substateKeys)
+    } else {
+      keyList.push(substateKeys)
+    }
+  }
+
+  keyList.forEach((substateKey) => {
+    if (!hasSubstate(substateKey)) {
+      throw new Error('No substate found with key ' + substateKey)
+    }
+  })
+
+  useEffect(() => {
+    if (keyList.length === 0) {
+      log('Registering global patch effect')
+
+      registerPatchEffect(effectFunction)
+    } else {
+      // Register the effect function for each key
+      keyList.forEach((substateKey) => {
+        log('Registering patch effect for ' + substateKey)
+
+        registerPatchEffect(effectFunction, substateKey)
+      })
     }
 
-    keyList.forEach((substateKey) => {
-        if (!hasSubstate(substateKey)) {
-            throw new Error('No substate found with key ' + substateKey)
-        }
-    })
+    return () => {
+      if (keyList.length === 0) {
+        log('Unregistering global patch effect')
 
-    useEffect(() => {
-        if (keyList.length === 0) {
-            log('Registering global patch effect')
+        unregisterPatchEffect(effectFunction)
+      } else {
+        // Unregister the effect function for each key
+        keyList.forEach((substateKey) => {
+          log('Unregistering patch effect for ' + substateKey)
 
-            registerPatchEffect(effectFunction)
-        } else {
-            // Register the effect function for each key
-            keyList.forEach((substateKey) => {
-                log('Registering patch effect for ' + substateKey)
-
-                registerPatchEffect(effectFunction, substateKey)
-            })
-        }
-
-        return () => {
-            if (keyList.length === 0) {
-                log('Unregistering global patch effect')
-
-                unregisterPatchEffect(effectFunction)
-            } else {
-                // Unregister the effect function for each key
-                keyList.forEach((substateKey) => {
-                    log('Unregistering patch effect for ' + substateKey)
-
-                    unregisterPatchEffect(effectFunction, substateKey)
-                })
-            }
-        }
-    }, [effectFunction, substateKeys])
+          unregisterPatchEffect(effectFunction, substateKey)
+        })
+      }
+    }
+  }, [effectFunction, substateKeys])
 }

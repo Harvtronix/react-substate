@@ -12,12 +12,12 @@ import {Dispatcher, SubstateKey} from '../Interfaces'
  * @returns {Dispatcher} Dispatch function that can be called to update the substate.
  */
 export function useDispatch <Type> (substateKey: SubstateKey<Type>): Dispatcher {
-    // Since we are creating a function in this hook, memoize it so it remains the same across
-    // re-renders
-    return useCallback(
-        (actionKey, payload) => (
-            dispatch(substateKey, actionKey, payload)
-        ),
-        [substateKey]
-    )
+  // Since we are creating a function in this hook, memoize it so it remains the same across
+  // re-renders
+  return useCallback(
+    (actionKey, payload) => (
+      dispatch(substateKey, actionKey, payload)
+    ),
+    [substateKey]
+  )
 }
