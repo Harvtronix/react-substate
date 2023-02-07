@@ -18,7 +18,7 @@ let patchingEnabled = false
 /**
  * Callback function for when new patches have been produced as the result of a `dispatch()` call.
  *
- * @param {SubstateKey<?>} substateKey Key pointing to the substate for which patches were
+ * @param {SubstateKey<*>} substateKey Key pointing to the substate for which patches were
  * produced.
  * @param {Array<any>} patches The patches array, as provided by immer.
  */
@@ -66,7 +66,7 @@ function isPatchingEnabled (): boolean {
  * receive patches produced for all registered substates.
  *
  * @param {PatchEffectFunction} effectFunction Function to call upon receiving new patches.
- * @param {SubstateKey<?>} [substateKey] Optional substate key to scope the registration to a
+ * @param {SubstateKey<*>} [substateKey] Optional substate key to scope the registration to a
  * single substate's patches.
  */
 function registerPatchEffect <Type> (
@@ -89,7 +89,7 @@ function registerPatchEffect <Type> (
  * Unregisters a previously registered patch effect.
  *
  * @param {PatchEffectFunction} effectFunction The function to unregister.
- * @param {SubstateKey<?>} [substateKey] The optional substate under which this effectFunction was
+ * @param {SubstateKey<*>} [substateKey] The optional substate under which this effectFunction was
  * registered. If omitted, it is assumed to have been globally registered.
  */
 function unregisterPatchEffect <Type> (

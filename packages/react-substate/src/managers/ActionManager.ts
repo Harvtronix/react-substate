@@ -1,5 +1,5 @@
 import {
-  Actions,
+  ActionKey,
   ActionStateModifier
 } from '../Interfaces'
 import {
@@ -12,14 +12,26 @@ import {
  *
  * @param {ActionStateModifier} stateModifier Handler function that is called to modify the state
  * during a dispatch of this action.
- * @returns {keyof Actions} Identifier used to later reference this action when calling dispatch.
+ * @returns {ActionKey<*>} Identifier used to later reference this action when calling dispatch.
  */
-export function createAction (
-  stateModifier: ActionStateModifier
-): keyof Actions {
+function createAction<Draft, Payload> (
+  stateModifier: ActionStateModifier<Draft, Payload>
+): ActionKey<Payload> {
   const actionKey = createActionKey()
 
   actions[actionKey] = stateModifier
 
-  return actionKey
+  return {
+    id: actionKey,
+    /**
+     * TypeScript typing function to provide access to the payload parameter of the action.
+     *
+     * @returns {undefined} Undefined.
+     */
+    __payload: () => (undefined as any)
+  }
+}
+
+export {
+  createAction
 }

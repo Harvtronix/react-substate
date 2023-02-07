@@ -1,13 +1,21 @@
-interface ActionStateModifier {
-  (draft: any, payload: any): any
+interface ActionStateModifier<Draft = any, Payload = any> {
+  (draft: Draft, payload: Payload): any
 }
 
 interface Actions {
   [key: number]: ActionStateModifier
 }
 
+interface ActionKey<Payload> {
+  id: keyof Actions
+  __payload: () => Payload
+}
+
 interface Dispatcher {
-  (actionKey: keyof Actions, payload: any): void
+  <Payload>(
+    actionKey: ActionKey<Payload>,
+    payload: ReturnType<typeof actionKey['__payload']>
+  ): void
 }
 
 interface PatchEffectFunction {
@@ -24,7 +32,7 @@ interface Substates {
 
 interface SubstateKey<Type> {
   id: keyof Substates
-  retrieve: (substates: Substates) => Type
+  __type: () => Type
 }
 
 interface DevToolsState {
@@ -48,6 +56,7 @@ type DevToolsOperation =
   'Dispatch'
 
 export type {
+  ActionKey,
   ActionStateModifier,
   Actions,
   DevTools,

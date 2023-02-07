@@ -1,7 +1,7 @@
 import produce from 'immer'
 
 import {log} from './Debug'
-import {Actions, SubstateKey} from './Interfaces'
+import {ActionKey, SubstateKey} from './Interfaces'
 import {updateDevTools} from './managers/DevToolsManager'
 import {
   handlePatchesProduced,
@@ -20,14 +20,14 @@ import {
  * substate listeners being notified of the newly produced state, as well as all patch effects
  * being called.
  *
- * @param {SubstateKey<?>} substateKey The key of the substate that will be updated.
- * @param {keyof Actions} actionKey The action to dispatch.
+ * @param {SubstateKey<*>} substateKey The key of the substate that will be updated.
+ * @param {ActionKey<*,*>} actionKey The action to dispatch.
  * @param {*} payload The data to pass to the action handler function.
  */
-export function dispatch <Type> (
+export function dispatch <Type, Payload> (
   substateKey: SubstateKey<Type>,
-  actionKey: keyof Actions,
-  payload: any
+  actionKey: ActionKey<Payload>,
+  payload: Payload
 ): void {
   log(`dispatching action ${actionKey} for substate ${substateKey}. Payload: ${payload}`)
 
@@ -35,7 +35,7 @@ export function dispatch <Type> (
   substates[substateKey.id].state = produce(
     substates[substateKey.id].state,
     (draft) => {
-      return actions[actionKey](draft, payload)
+      return actions[actionKey.id](draft, payload)
     },
     // Immer will throw an error if a third arg is passed with patching disabled, so use
     // `undefined` to make it seem like there's no additional arg
@@ -52,5 +52,5 @@ export function dispatch <Type> (
   )
 
   // Notify the DevTools
-  updateDevTools('Dispatch', actionKey)
+  updateDevTools('Dispatch', actionKey.id)
 }
