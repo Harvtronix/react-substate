@@ -1,5 +1,5 @@
 interface ActionStateModifier<Draft = any, Payload = any> {
-  (draft: Draft, payload: Payload): any
+  (draft: Draft, payload: Payload): Draft | void
 }
 
 interface Actions {
@@ -26,7 +26,7 @@ interface Substates {
   [key: number]: {
     listeners: Array<Function>
     patchEffects: Array<PatchEffectFunction>
-    state: Record<string | number | symbol, any>
+    state: unknown
   }
 }
 

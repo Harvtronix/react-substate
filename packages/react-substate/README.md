@@ -4,7 +4,7 @@
 
 [![Package Name](https://img.shields.io/badge/pkg%20name-react--substate-blueviolet)](https://www.npmjs.com/package/react-substate)
 [![NPM Version](https://img.shields.io/npm/v/react-substate.svg)](https://www.npmjs.com/package/react-substate)
-![Minified and Zipped Size is 1.18 kB](https://img.shields.io/badge/minified%2Bzipped-1.18%20kB-brightgreen)
+![Minified and Zipped Size is 1.27 kB](https://img.shields.io/badge/minified%2Bzipped-1.18%20kB-brightgreen)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-orange.svg)](https://standardjs.com)
 [![License](https://img.shields.io/npm/l/react-substate?color=orange)](https://github.com/Harvtronix/react-substate/blob/main/LICENSE)
 [![CI](https://github.com/Harvtronix/react-substate/workflows/CI/badge.svg)](https://github.com/Harvtronix/react-substate/actions?query=workflow%3ACI)
@@ -61,6 +61,16 @@ If you have the Redux DevTools extension installed in your browser, you'll be ab
 ## Migrating from 3.x to 4.x
 The 4.0 release includes breaking changes, but improves the user experience when using the module. It should also be a tiny bit faster because of some clever memoization. Here are the details of the change so you can migrate from v3 to v4.
 
+## Migrating from 4.x to 5.x
+The 4.0 release changes two things. The first affects both JS and TS users. The second only affects TS users:
+1. Package exports are now defined via the `exports` key in the `package.json` file. In most cases, this will not require any changes to your code. If you do encounter issues, ensure you're not accessing any of the `react-substate` package code via sub-paths. Stick to the named or default exports.
+2. TypeScript types are now stricter for the `createAction` function and payloads being provided to `dispatch`ed actions. Two potential typing errors you will encounter when moving to v5 are:
+    - `'draft' is of type 'unknown'`
+        - To address this issue, provide a type for the first parameter (`draft`) of `createAction`.
+    - `'payload' is of type 'unknown'`
+        - To address this issue, provide a type for the second parameter (`payload`) of `createAction`.
+        - Note that adding a type to the `payload` parameter will require dispatches of the action to adhere to this type.
+
 ### Changes
 - Reworked `createAction` to not take a substate key as input. The mapping between a substate and a `dispatch` function is now handled when invoking the `useSubstate` or `useDispatch` hooks.
 - `Substate.create` is now either `createSubstate` or `Substate.createSubstate`.
@@ -70,7 +80,7 @@ The 4.0 release includes breaking changes, but improves the user experience when
 
 
 # Intro
-Substate boils down to three main parts:
+React Substate boils down to three main parts:
 
 ## Substates
 This is how you store your application state. You can create new substates wherever you want, but it is recommended to define them all in the same file.
@@ -82,16 +92,16 @@ Few, large substates will lead to heavier and more frequent re-renders, but can 
 Many, small substates generally leads to better-designed applications with fewer re-renders. The disadvantage of this approach is some additional legwork to adequately divide your application state into substates.
 
 ## Actions
-Like other action/dispatch-driven frameworks, Substate requires that state be updated through discrete actions previously registered with the framework. These actions can be created/registered at any time, but it is advisable to define them up front and all together in their own file(s).
+Like other action/dispatch-driven frameworks, React Substate requires that state be updated through discrete actions previously registered with the framework. These actions can be created/registered at any time, but it is advisable to define them up front and all together in their own file(s).
 
-What sets Substate apart from other state management libraries is that every single action you create is automatically passed through *Immer* to ensure that no matter how you manipulate your state from inside your actions, the result is always an **immutable** state change. Plus, *Immer* makes the syntax super clean.
+What sets React Substate apart from other state management libraries is that every single action you create is automatically passed through *Immer* to ensure that no matter how you manipulate your state from inside your actions, the result is always an **immutable** state change. Plus, *Immer* makes the syntax super clean.
 
 An action can be used to update any substate. You have the flexibility to choose whether to write general-purpose actions that can apply to multiple different subsates (based on their structure) or very specific actions that only make sense when called against a single substate. It is often easier to debug an application when the actions are specific and discrete, but this is not required by the framework. For example, a single, giant action called `doUpdate` with a bunch of conditionals in it is most likely a terrible idea.
 
 Actions you create can later be passed to a `dispatch` function to cause your substates to change, and ultimately your components to re-render. `dispatch` takes an action and a payload as arguments. The payload can be anything you might need to calculate the new state from inside your action.
 
 ## Hooks
-Substate's React Hooks are what give you access to your state and changes to that state. A component can use as many `useSubstate` hooks as needed to obtain the data it needs to render. Both `useSubstate` and `useDispatch` will give you a reference to the `dispatch` function that can be used to update a particular substate (the one provided as an argument to the hook).
+React Substate's Hooks are what give you access to your state and changes to that state. A component can use as many `useSubstate` hooks as needed to obtain the data it needs to render. Both `useSubstate` and `useDispatch` will give you a reference to the `dispatch` function that can be used to update a particular substate (the one provided as an argument to the hook).
 
 In addition to `useSubstate` and `useDispatch`, there's another hook called `usePatchEffect`. This hook allows you to register to receive every patch generated by *Immer* as your application state changes. Each patch effect can be scoped to one particular substate, many substates, or the entire substate registry.
 
