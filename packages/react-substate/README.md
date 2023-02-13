@@ -200,7 +200,7 @@ const substates = {
 // Set up some dispatchable actions
 const actions = {
   updateSomeField: createAction(
-    // The subtate's type can then also be used in the action modifier function
+    // The subtate's type can then also be used in the substate modifier function
     (draft: Test, payload: Test['someField']) => {
       draft.someField = payload // Will become "the new state"
     }
