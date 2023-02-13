@@ -9,7 +9,7 @@
   "author": "Harvtronix",
   "license": "MIT",
   "devDependencies": {
-    "npm-check-updates": "^16.0.5"
+    "npm-check-updates": "^16.7.4"
   },
   "workspaces": [
     "packages/react-substate",
