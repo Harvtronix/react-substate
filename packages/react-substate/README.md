@@ -140,7 +140,7 @@ const actions = {
   }
 }
 
-const PatchEffectExample = () => {
+export const PatchEffectExample = () => {
   const [test, testDispatch] = useSubstate(substates.test)
   const anotherTestDispatch = useDispatch(substates.anotherTest)
 
@@ -178,6 +178,51 @@ const PatchEffectExample = () => {
 }
 ```
 
+## Basic TypeScript example
+```tsx
+import {
+  createSubstate,
+  createAction,
+  useSubstate
+} from 'react-substate'
+
+interface Test {
+  someField: string
+}
+
+const substates = {
+  // By default, the type of the substate will be inferred from the provided argument
+  simple: createSubstate({foo: 'bar'})
+  // A type hint can be provided to be more specific.
+  test: createSubstate<Test>({someField: 'the state'})
+}
+
+// Set up some dispatchable actions
+const actions = {
+  updateSomeField: createAction(
+    // The subtate's type can then also be used in the action modifier function
+    (draft: Test, payload: Test['someField']) => {
+      draft.someField = payload // Will become "the new state"
+    }
+  )
+}
+
+export const BasicExample = () => {
+  const [test, dispatch] = useSubstate(substates.test)
+
+  return (
+    <button
+      onClick={() => {
+        dispatch(actions.updateSomeField, 'the new state') // works
+        dispatch(actions.updateSomeField, 123) // error (must pass a string)
+      }}
+    >
+      {test.someField}
+    </button>
+  )
+}
+```
+
 # API Reference
 
 ## Functions
@@ -205,7 +250,7 @@ Hook that allows a component to receive patches each time a substate is updated.
 
 # Peer Dependencies
 This module has peer dependencies on:
-- `react` version 16 (with hooks support) or higher.
+- `react` version 16.14 (with hooks support) or higher.
 - `react-dom` version 16 or higher.
 
 # License
