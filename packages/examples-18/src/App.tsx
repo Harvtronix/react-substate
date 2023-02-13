@@ -1,9 +1,6 @@
-import React from 'react'
-
 import BasicExample from './components/BasicExample'
 import PatchEffectExample from './components/PatchEffectExample'
 import ReplaceEntireStateExample from './components/ReplaceEntireStateExample'
-import UnmountedComponentTest from './components/UnmountedComponentTest/UnmountedComponentTest'
 import DispatchOnlyExample from './components/DispatchOnlyExample'
 
 const App = () => {
@@ -20,10 +17,6 @@ const App = () => {
             <div>
                 <h1>Replacing Entire State Example</h1>
                 <ReplaceEntireStateExample />
-            </div>
-            <div>
-                <h1>Unmounted Component Example</h1>
-                <UnmountedComponentTest />
             </div>
             <div>
                 <h1>Dispatch-Only Example</h1>
