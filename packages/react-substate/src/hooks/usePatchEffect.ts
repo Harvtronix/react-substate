@@ -44,7 +44,7 @@ export function usePatchEffect <Type> (
     } else {
       // Register the effect function for each key
       keyList.forEach((substateKey) => {
-        log('Registering patch effect for ' + substateKey)
+        log('Registering patch effect for ' + substateKey.id)
 
         registerPatchEffect(effectFunction, substateKey)
       })
@@ -58,7 +58,7 @@ export function usePatchEffect <Type> (
       } else {
         // Unregister the effect function for each key
         keyList.forEach((substateKey) => {
-          log('Unregistering patch effect for ' + substateKey)
+          log('Unregistering patch effect for ' + substateKey.id)
 
           unregisterPatchEffect(effectFunction, substateKey)
         })

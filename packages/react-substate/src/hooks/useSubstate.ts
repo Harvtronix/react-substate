@@ -29,11 +29,11 @@ export function useSubstate <Type> (substateKey: SubstateKey<Type>): [Type, Disp
   const [, setState] = useState()
 
   useEffect(() => {
-    log('Registering listener for ' + substateKey)
+    log('Registering listener for ' + substateKey.id)
     registerListener(substateKey, setState)
 
     return () => {
-      log('Unregistering listener for ' + substateKey)
+      log('Unregistering listener for ' + substateKey.id)
       unregisterListener(substateKey, setState)
     }
   }, [substateKey, setState])

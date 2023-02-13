@@ -29,7 +29,7 @@ const DispatchOnlyExample = () => {
   const dispatch = useDispatch(substates.test)
 
   useEffect(() => {
-    console.log('it rendered!') // This will only ever be called one time
+    console.log('I will only render this one time!') // This will only ever be called one time
   })
 
   return (

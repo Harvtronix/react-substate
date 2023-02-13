@@ -29,7 +29,7 @@ export function dispatch <Type, Payload> (
   actionKey: ActionKey<Payload>,
   payload: Payload
 ): void {
-  log(`dispatching action ${actionKey} for substate ${substateKey}. Payload: ${payload}`)
+  log(`dispatching action ${actionKey.id} for substate ${substateKey.id}. Payload: ${payload}`)
 
   // Update the global state via immer
   substates[substateKey.id].state = produce(
