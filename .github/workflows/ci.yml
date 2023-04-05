@@ -15,14 +15,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
       - name: Setup Node 🏗️
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: npm
-
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
 
       - name: Install Node Modules 🔧
         run: npm install
@@ -36,14 +36,14 @@ jobs:
   ci-lint:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
       - name: Setup Node 🏗️
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: npm
-
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
 
       - name: Install Node Modules 🔧
         run: npm install
