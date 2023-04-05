@@ -1,14 +1,15 @@
 import {enablePatches} from 'immer'
 
-import {log} from '../Debug'
+import {log} from '../Debug.js'
 import {
   PatchEffectFunction,
   SubstateKey
-} from '../Interfaces'
+} from '../Interfaces.js'
 import {
   patchEffects,
   substates
-} from '../Registry'
+} from '../Registry.js'
+import {hasSubstate} from './SubstateManager.js'
 
 /**
  * boolean indicator of whether or not patching is currently enabled.
@@ -27,13 +28,18 @@ function handlePatchesProduced <Type> (substateKey: SubstateKey<Type>, patches: 
     return
   }
 
-  // Fire all substate-specific patch effects
+  if (!hasSubstate(substateKey)) {
+    throw new Error(`Substate key ${substateKey} not registered`)
+  }
+
+  // Fire all global patch effects substate-specific patch effects
   patchEffects.forEach((patchEffectFunction) => {
     patchEffectFunction(patches)
   })
 
-  // Fire all global patch effects
-  substates[substateKey.id].patchEffects.forEach((patchEffectFunction) => {
+  // Fire all global substate-specific patch effects
+  // Null check performed in guard clause above
+  substates[substateKey.id]!.patchEffects.forEach((patchEffectFunction) => {
     patchEffectFunction(patches)
   })
 }
@@ -78,7 +84,13 @@ function registerPatchEffect <Type> (
 
   if (substateKey !== undefined) {
     // Substate key was provided. Register with specific substate
-    substates[substateKey.id].patchEffects.push(effectFunction)
+
+    if (!hasSubstate(substateKey)) {
+      throw new Error(`Substate key ${substateKey} not registered`)
+    }
+
+    // Null check performed in previous guard clause
+    substates[substateKey.id]!.patchEffects.push(effectFunction)
   } else {
     // Substate key was not provided. Register patch effect globally
     patchEffects.push(effectFunction)
@@ -98,8 +110,14 @@ function unregisterPatchEffect <Type> (
 ): void {
   if (substateKey !== undefined) {
     // Substate key was provided. Unregister from specific substate
-    substates[substateKey.id].patchEffects =
-            substates[substateKey.id].patchEffects.filter(
+
+    if (!hasSubstate(substateKey)) {
+      throw new Error(`Substate key ${substateKey} not registered`)
+    }
+
+    // Null check performed in previous guard clause
+    substates[substateKey.id]!.patchEffects =
+            substates[substateKey.id]!.patchEffects.filter(
               (ef: PatchEffectFunction) => (ef !== effectFunction)
             )
   } else {

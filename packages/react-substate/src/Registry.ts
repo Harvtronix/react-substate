@@ -2,7 +2,7 @@ import {
   Actions,
   PatchEffectFunction,
   Substates
-} from './Interfaces'
+} from './Interfaces.js'
 
 //
 // Objects
@@ -30,12 +30,12 @@ const substates: Substates = {}
 /**
  * An ever-increasing index assigned to each action created by calling `createAction()`.
  */
-let actionKeyCounter: keyof Actions = 0
+let actionKeyCounter = 0
 
 /**
  * An ever-increasing index assigned to each substate created by calling `create()`.
  */
-let substateKeyIdCounter: keyof Substates = 0
+let substateKeyIdCounter = 0
 
 //
 // Functions
@@ -45,14 +45,14 @@ let substateKeyIdCounter: keyof Substates = 0
  * @returns {keyof Actions} A new, unique action key.
  */
 function createActionKey (): keyof Actions {
-  return actionKeyCounter++
+  return String(++actionKeyCounter)
 }
 
 /**
  * @returns {keyof Substates} A new, unique substate key.
  */
 function createSubstateKeyId (): keyof Substates {
-  return substateKeyIdCounter++
+  return String(++substateKeyIdCounter)
 }
 
 export {

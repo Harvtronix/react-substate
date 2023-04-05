@@ -1,6 +1,6 @@
 import {
-  createSubstate,
   createAction,
+  createSubstate,
   useSubstate
 } from 'react-substate'
 

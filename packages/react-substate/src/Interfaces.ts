@@ -3,7 +3,7 @@ interface ActionStateModifier<Draft = any, Payload = any> {
 }
 
 interface Actions {
-  [key: number]: ActionStateModifier
+  [key: string]: ActionStateModifier
 }
 
 interface ActionKey<Payload> {
@@ -23,7 +23,7 @@ interface PatchEffectFunction {
 }
 
 interface Substates {
-  [key: number]: {
+  [key: string]: {
     listeners: Array<Function>
     patchEffects: Array<PatchEffectFunction>
     state: unknown
@@ -36,7 +36,7 @@ interface SubstateKey<Type> {
 }
 
 interface DevToolsState {
-  [key: number]: {
+  [key: string]: {
     listeners: number,
     patchEffects: number,
     state: Substates[any]['state']

@@ -1,9 +1,9 @@
-import {SubstateKey, Substates} from '../Interfaces'
+import {SubstateKey, Substates} from '../Interfaces.js'
 import {
   createSubstateKeyId,
   substates
-} from '../Registry'
-import {updateDevTools} from './DevToolsManager'
+} from '../Registry.js'
+import {updateDevTools} from './DevToolsManager.js'
 
 /**
  * Creates and registers a new substate with the given initial data.
@@ -48,7 +48,8 @@ function getSubstate <Type> (substateKey: SubstateKey<Type>): Type {
   if (!hasSubstate(substateKey)) {
     throw new Error(`Substate key ${substateKey} not registered`)
   }
-  return substates[substateKey.id].state as Type
+  // Null check performed in previous guard clause
+  return substates[substateKey.id]!.state as Type
 }
 
 /**
@@ -72,7 +73,12 @@ function hasSubstate <Type> (substateKey: SubstateKey<Type>): boolean {
 function registerListener <Type> (
   substateKey: SubstateKey<Type>, setStateFunction: Function
 ): void {
-  substates[substateKey.id].listeners.push(setStateFunction)
+  if (!hasSubstate(substateKey)) {
+    throw new Error(`Substate key ${substateKey} not registered`)
+  }
+
+  // Null check performed in previous guard clause
+  substates[substateKey.id]!.listeners.push(setStateFunction)
 }
 
 /**
@@ -86,8 +92,12 @@ function registerListener <Type> (
 function unregisterListener <Type> (
   substateKey: SubstateKey<Type>, setStateFunction: Function
 ): void {
-  substates[substateKey.id].listeners =
-        substates[substateKey.id].listeners.filter((li) => (li !== setStateFunction))
+  if (!hasSubstate(substateKey)) {
+    throw new Error(`Substate key ${substateKey} not registered`)
+  }
+
+  substates[substateKey.id]!.listeners =
+      substates[substateKey.id]!.listeners.filter((li) => (li !== setStateFunction))
 }
 
 export {

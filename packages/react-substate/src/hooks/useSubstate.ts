@@ -1,14 +1,14 @@
 import {useEffect, useState} from 'react'
 
-import {log} from '../Debug'
-import {Dispatcher, SubstateKey} from '../Interfaces'
+import {log} from '../Debug.js'
+import {Dispatcher, SubstateKey} from '../Interfaces.js'
 import {
   getSubstate,
   hasSubstate,
   registerListener,
   unregisterListener
-} from '../managers/SubstateManager'
-import {useDispatch} from './useDispatch'
+} from '../managers/SubstateManager.js'
+import {useDispatch} from './useDispatch.js'
 
 /**
  * Hook that allows a component to listen for changes to a substate and receive a reference to a

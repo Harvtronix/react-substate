@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 
-import {dispatch} from '../dispatch'
-import {ActionKey, Dispatcher, SubstateKey} from '../Interfaces'
+import {dispatch} from '../dispatch.js'
+import {ActionKey, Dispatcher, SubstateKey} from '../Interfaces.js'
 
 /**
  * Hook that allows a component to receive a reference to a dispatch function that can be called to

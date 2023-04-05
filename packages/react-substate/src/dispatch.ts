@@ -1,16 +1,17 @@
-import produce from 'immer'
+import {produce} from 'immer'
 
-import {log} from './Debug'
-import {ActionKey, SubstateKey} from './Interfaces'
-import {updateDevTools} from './managers/DevToolsManager'
+import {log} from './Debug.js'
+import {ActionKey, SubstateKey} from './Interfaces.js'
+import {updateDevTools} from './managers/DevToolsManager.js'
 import {
   handlePatchesProduced,
   isPatchingEnabled
-} from './managers/PatchManager'
+} from './managers/PatchManager.js'
+import {hasSubstate} from './managers/SubstateManager.js'
 import {
   actions,
   substates
-} from './Registry'
+} from './Registry.js'
 
 /**
  * This function is basically the whole point of this node module.
@@ -31,11 +32,15 @@ export function dispatch <Type, Payload> (
 ): void {
   log(`dispatching action ${actionKey.id} for substate ${substateKey.id}. Payload: ${payload}`)
 
+  if (!hasSubstate(substateKey)) {
+    throw new Error(`Substate key ${substateKey} not registered`)
+  }
+
   // Update the global state via immer
-  substates[substateKey.id].state = produce(
-    substates[substateKey.id].state,
+  substates[substateKey.id]!.state = produce(
+    substates[substateKey.id]!.state,
     (draft) => {
-      return actions[actionKey.id](draft, payload)
+      return actions[actionKey.id]!(draft, payload)
     },
     // Immer will throw an error if a third arg is passed with patching disabled, so use
     // `undefined` to make it seem like there's no additional arg
@@ -45,9 +50,9 @@ export function dispatch <Type, Payload> (
   )
 
   // Notify all substate listeners by calling their setState function
-  substates[substateKey.id].listeners.forEach(
+  substates[substateKey.id]!.listeners.forEach(
     (setState) => {
-      setState(substates[substateKey.id].state)
+      setState(substates[substateKey.id]!.state)
     }
   )
 

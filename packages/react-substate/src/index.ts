@@ -1,10 +1,10 @@
-import {setDebugEnabled} from './Debug'
-import {useDispatch} from './hooks/useDispatch'
-import {usePatchEffect} from './hooks/usePatchEffect'
-import {useSubstate} from './hooks/useSubstate'
-import {createAction} from './managers/ActionManager'
-import {setDevToolsEnabled} from './managers/DevToolsManager'
-import {createSubstate} from './managers/SubstateManager'
+import {setDebugEnabled} from './Debug.js'
+import {useDispatch} from './hooks/useDispatch.js'
+import {usePatchEffect} from './hooks/usePatchEffect.js'
+import {useSubstate} from './hooks/useSubstate.js'
+import {createAction} from './managers/ActionManager.js'
+import {setDevToolsEnabled} from './managers/DevToolsManager.js'
+import {createSubstate} from './managers/SubstateManager.js'
 
 export default {
   createAction,

@@ -20,42 +20,28 @@
     "url": "git+ssh://git@github.com/Harvtronix/react-substate.git"
   },
   "type": "module",
+  "module": "./dist/mjs/index.js",
   "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.cjs"
+    "types": "./dist/mjs/index.d.ts",
+    "import": "./dist/mjs/index.js",
+    "require": "./dist/cjs/index.js"
   },
   "source": "src/index.ts",
   "scripts": {
-    "build": "npm-run-all clean rollup",
-    "build-all": "npm-run-all ci-* build",
-    "build-quick": "npm-run-all rollup",
-    "develop": "nodemon --ext ts,tsx,js,tsx --ignore dist/ --exec npm run build-quick",
-    "clean": "rimraf dist",
-    "ci-lint": "eslint --ext .ts,.tsx,.js,.jsx --max-warnings 0 .",
-    "rollup": "rollup -c rollup.config.js"
+    "build": "npm-run-all clean build-mjs build-cjs",
+    "build-cjs": "tsc --project tsconfig.cjs.json",
+    "build-mjs": "tsc",
+    "build-watch": "tsc --watch",
+    "clean": "rimraf dist"
   },
   "devDependencies": {
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.10",
-    "@typescript-eslint/eslint-plugin": "^5.51.0",
-    "@typescript-eslint/parser": "^5.51.0",
-    "eslint": "^8.34.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jsdoc": "^39.9.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint-plugin-standard": "^4.1.0",
-    "nodemon": "^2.0.20",
+    "@types/react": "^18.0.33",
+    "@types/react-dom": "^18.0.11",
+    "nodemon": "^2.0.22",
     "npm-run-all": "^4.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",
-    "rollup": "^2.79.1",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^4.9.5"
   },
   "peerDependencies": {
@@ -63,6 +49,6 @@
     "react-dom": ">=16.14"
   },
   "dependencies": {
-    "immer": "^9.0.19"
+    "immer": "^9.0.21"
   }
 }

@@ -4,8 +4,8 @@ import {
   DevToolsOperation,
   DevToolsState,
   Substates
-} from '../Interfaces'
-import {actions, substates} from '../Registry'
+} from '../Interfaces.js'
+import {actions, substates} from '../Registry.js'
 
 /**
  * Flag indicating whether or not to log things to the DevTools browser extension.
@@ -44,13 +44,13 @@ function setDevToolsEnabled (isEnabled: boolean) {
 function transformState (state: Substates): DevToolsState {
   const result: DevToolsState = {}
 
-  for (const key in state) {
-    result[key] = ({
-      listeners: state[key].listeners.length,
-      patchEffects: state[key].patchEffects.length,
-      state: state[key].state
-    })
-  }
+  Object.keys(state).forEach((key) => {
+    result[key] = {
+      listeners: state[key]!.listeners.length,
+      patchEffects: state[key]!.patchEffects.length,
+      state: state[key]!.state
+    }
+  })
 
   return result
 }

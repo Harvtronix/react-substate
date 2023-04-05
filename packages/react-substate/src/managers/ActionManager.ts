@@ -1,11 +1,11 @@
 import {
   ActionKey,
   ActionStateModifier
-} from '../Interfaces'
+} from '../Interfaces.js'
 import {
   actions,
   createActionKey
-} from '../Registry'
+} from '../Registry.js'
 
 /**
  * Registers a new dispatchable action to modify a substate.

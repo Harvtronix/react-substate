@@ -4,12 +4,24 @@
   "private": true,
   "description": "React Substate Monorepo",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --ext .ts,.tsx,.js,.jsx --max-warnings 0 ."
   },
   "author": "Harvtronix",
   "license": "MIT",
   "devDependencies": {
-    "npm-check-updates": "^16.7.4"
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.37.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsdoc": "^39.9.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-standard": "^4.1.0",
+    "npm-check-updates": "^16.10.2"
   },
   "workspaces": [
     "packages/react-substate",

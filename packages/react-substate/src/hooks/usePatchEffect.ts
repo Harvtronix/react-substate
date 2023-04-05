@@ -1,12 +1,12 @@
 import {useEffect} from 'react'
 
-import {log} from '../Debug'
-import {PatchEffectFunction, SubstateKey} from '../Interfaces'
+import {log} from '../Debug.js'
+import {PatchEffectFunction, SubstateKey} from '../Interfaces.js'
 import {
   registerPatchEffect,
   unregisterPatchEffect
-} from '../managers/PatchManager'
-import {hasSubstate} from '../managers/SubstateManager'
+} from '../managers/PatchManager.js'
+import {hasSubstate} from '../managers/SubstateManager.js'
 
 /**
  * Hook that allows a component to receive patches each time a substate is updated.
