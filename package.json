@@ -10,18 +10,18 @@
   "author": "Harvtronix",
   "license": "MIT",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.57.1",
-    "@typescript-eslint/parser": "^5.57.1",
-    "eslint": "^8.37.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.27.5",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.57.1",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-jsdoc": "^39.9.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-promise": "^6.6.0",
+    "eslint-plugin-react": "^7.36.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-standard": "^4.1.0",
-    "npm-check-updates": "^16.10.2"
+    "npm-check-updates": "^16.14.20"
   },
   "workspaces": [
     "packages/react-substate",

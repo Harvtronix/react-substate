@@ -11,13 +11,6 @@ interface ActionKey<Payload> {
   __payload: () => Payload
 }
 
-interface Dispatcher {
-  <Payload>(
-    actionKey: ActionKey<Payload>,
-    payload: ReturnType<typeof actionKey['__payload']>
-  ): void
-}
-
 interface PatchEffectFunction {
   (patches: Array<any>): void
 }
@@ -33,6 +26,21 @@ interface Substates {
 interface SubstateKey<Type> {
   id: keyof Substates
   __type: () => Type
+}
+
+interface Dispatcher {
+  <Payload>(
+    actionKey: ActionKey<Payload>,
+    payload: ReturnType<typeof actionKey['__payload']>
+  ): void
+}
+
+interface GlobalDispatcher{
+  <Payload>(
+    substateKey: SubstateKey<unknown>,
+    actionKey: ActionKey<Payload>,
+    payload: ReturnType<typeof actionKey['__payload']>
+  ): void
 }
 
 interface DevToolsState {
@@ -63,6 +71,7 @@ export type {
   DevToolsOperation,
   DevToolsState,
   Dispatcher,
+  GlobalDispatcher,
   PatchEffectFunction,
   Substates,
   SubstateKey

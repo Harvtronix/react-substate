@@ -1,7 +1,7 @@
 import {
   createSubstate,
   createAction,
-  useSubstate
+  useSubstate,
 } from 'react-substate'
 
 interface Test {
@@ -14,7 +14,7 @@ interface AnotherTest {
 // Set up some sub-states
 const substates = {
   test: createSubstate<Test>({someField: 'the state'}),
-  anotherTest: createSubstate<AnotherTest>({foo: 'bar'})
+  anotherTest: createSubstate<AnotherTest>(() => ({foo: 'bar'}))
 }
 
 // Set up some dispatchable actions

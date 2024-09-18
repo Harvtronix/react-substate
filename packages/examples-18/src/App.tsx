@@ -1,7 +1,7 @@
-import BasicExample from './components/BasicExample'
-import PatchEffectExample from './components/PatchEffectExample'
-import ReplaceEntireStateExample from './components/ReplaceEntireStateExample'
-import DispatchOnlyExample from './components/DispatchOnlyExample'
+import BasicExample from './components/BasicExample.js'
+import PatchEffectExample from './components/PatchEffectExample.js'
+import ReplaceEntireStateExample from './components/ReplaceEntireStateExample.js'
+import DispatchOnlyExample from './components/DispatchOnlyExample.js'
 
 const App = () => {
     return (

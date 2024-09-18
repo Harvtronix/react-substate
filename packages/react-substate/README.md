@@ -29,7 +29,7 @@ import {
 // Set up some sub-states
 const substates = {
   test: createSubstate({someField: 'the state'}),
-  anotherTest: createSubstate({foo: 'bar'})
+  anotherTest: createSubstate(() => ({foo: 'bar'})) // Use a generator function
 }
 
 // Set up some dispatchable actions
@@ -243,7 +243,10 @@ Turns on/off logging of substate changes to the DevTools browser extension.
 Hook that allows a component to listen for changes to a substate and receive a reference to a dispatch function that can be called to update that substate.
 
 `useDispatch`
-Hook that allows a component to receive a reference to a dispatch function that can be called to update a particular substate without also listening for changes to any substates.
+Hook that allows a component to receive a reference to a dispatch function that can be called to update a particular substate without also listening for changes to that substate.
+
+`useGlobalDispatch`
+Hook that allows a component to receive a reference to a dispatch function that can be called to update any provided substate without also listening for changes to any substates.
 
 `usePatchEffect`
 Hook that allows a component to receive patches each time a substate is updated.

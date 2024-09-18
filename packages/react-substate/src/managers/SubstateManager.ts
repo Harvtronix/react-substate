@@ -12,7 +12,7 @@ import {updateDevTools} from './DevToolsManager.js'
  * @returns {SubstateKey<*>} Identifier used to later reference this substate.
  */
 function createSubstate <Type extends Substates[any]['state']> (
-  initialData: Type
+  initialData: Type | (() => Type)
 ): SubstateKey<Type> {
   const substateKey = createSubstateKeyId()
 
@@ -20,7 +20,7 @@ function createSubstate <Type extends Substates[any]['state']> (
   substates[substateKey] = {
     listeners: [],
     patchEffects: [],
-    state: initialData
+    state: initialData instanceof Function ? initialData() : initialData
   }
 
   // Notify the DevTools

@@ -7,16 +7,7 @@ import {
 } from '../Interfaces.js'
 import {actions, substates} from '../Registry.js'
 
-/**
- * Flag indicating whether or not to log things to the DevTools browser extension.
- */
-let isDevToolsEnabled = false
-
-// Obtain a handle to the DevTools extension if it exists
-const w = typeof window !== 'undefined' ? (window as any) : null
-const devTools = w && w.__REDUX_DEVTOOLS_EXTENSION__
-  ? w.__REDUX_DEVTOOLS_EXTENSION__.connect() as DevTools
-  : null
+let devTools: DevTools | undefined
 
 /**
  * Turns on/off logging of state changes to the DevTools browser extension.
@@ -24,14 +15,26 @@ const devTools = w && w.__REDUX_DEVTOOLS_EXTENSION__
  * @param {boolean} isEnabled Indicates whether or not to turn on DevTools logging.
  */
 function setDevToolsEnabled (isEnabled: boolean) {
-  if (!devTools) {
+  if (!isEnabled) {
+    devTools = undefined
     return
   }
 
-  isDevToolsEnabled = isEnabled
+  if (!devTools) {
+    // Obtain a handle to the DevTools extension if it exists
+    const w = typeof window !== 'undefined' ? (window as any) : null
 
-  if (isDevToolsEnabled) {
-    devTools.init(transformState(substates))
+    const interval = setInterval(() => {
+      devTools = w?.__REDUX_DEVTOOLS_EXTENSION__?.connect()
+
+      if (!devTools) {
+        return
+      }
+
+      clearInterval(interval)
+
+      devTools.init(transformState(substates))
+    }, 3000)
   }
 }
 
@@ -46,9 +49,9 @@ function transformState (state: Substates): DevToolsState {
 
   Object.keys(state).forEach((key) => {
     result[key] = {
-      listeners: state[key]!.listeners.length,
-      patchEffects: state[key]!.patchEffects.length,
-      state: state[key]!.state
+      listeners: state[key]?.listeners.length ?? -1,
+      patchEffects: state[key]?.patchEffects.length ?? -1,
+      state: state[key]?.state
     }
   })
 
@@ -63,7 +66,7 @@ function transformState (state: Substates): DevToolsState {
  * @param {keyof Actions?} actionKey An optional action key associated with a `dispatch` call.
  */
 function updateDevTools (operation: DevToolsOperation, actionKey?: keyof Actions) {
-  if (!devTools || !isDevToolsEnabled) {
+  if (!devTools) {
     return
   }
 

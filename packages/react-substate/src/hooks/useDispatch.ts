@@ -5,7 +5,7 @@ import {ActionKey, Dispatcher, SubstateKey} from '../Interfaces.js'
 
 /**
  * Hook that allows a component to receive a reference to a dispatch function that can be called to
- * update substates without also listening for changes to any substates.
+ * update a particular substate without also listening for changes to any substates.
  *
  * @param {SubstateKey<*>} substateKey The substate to be modified by actions dispatched via the
  * returned dispatch function.
