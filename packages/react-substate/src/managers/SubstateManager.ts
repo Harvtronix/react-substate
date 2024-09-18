@@ -53,7 +53,6 @@ function getSubstate <Type> (substateKey: SubstateKey<Type>): Type {
   const substate = substates[substateKey.id]
 
   if (substate?.state instanceof Function) {
-    console.log('converting state generator to state object')
     substate.state = substate.state()
   }
 
