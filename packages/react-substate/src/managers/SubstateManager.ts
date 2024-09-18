@@ -20,7 +20,7 @@ function createSubstate <Type extends Substates[any]['state']> (
   substates[substateKey] = {
     listeners: [],
     patchEffects: [],
-    state: initialData instanceof Function ? initialData() : initialData
+    state: initialData
   }
 
   // Notify the DevTools
@@ -39,7 +39,8 @@ function createSubstate <Type extends Substates[any]['state']> (
 
 /**
  * Returns a substate with the provided key, or throws an exception if the key does not point to a
- * valid substate.
+ * valid substate. Converts the substate from a generator function to its generated value the first
+ * time it is called for a given substate.
  *
  * @param {SubstateKey<*>} substateKey The key of the substate to retrieve.
  * @returns {*} The substate.
@@ -48,8 +49,16 @@ function getSubstate <Type> (substateKey: SubstateKey<Type>): Type {
   if (!hasSubstate(substateKey)) {
     throw new Error(`Substate key ${substateKey} not registered`)
   }
+
+  const substate = substates[substateKey.id]
+
+  if (substate?.state instanceof Function) {
+    console.log('converting state generator to state object')
+    substate.state = substate.state()
+  }
+
   // Null check performed in previous guard clause
-  return substates[substateKey.id]!.state as Type
+  return substate?.state as Type
 }
 
 /**

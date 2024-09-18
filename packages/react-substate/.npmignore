@@ -4,7 +4,7 @@ src/
 .github/
 
 package-lock.json
-tsconfig.json
+tsconfig.cjs.json
 rollup.config.js
 
 !dist/

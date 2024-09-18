@@ -2,6 +2,7 @@ import BasicExample from './components/BasicExample.js'
 import PatchEffectExample from './components/PatchEffectExample.js'
 import ReplaceEntireStateExample from './components/ReplaceEntireStateExample.js'
 import DispatchOnlyExample from './components/DispatchOnlyExample.js'
+import BasicExampleWithGenerator from './components/BasicExampleWithGenerator.js'
 
 const App = () => {
     return (
@@ -9,6 +10,10 @@ const App = () => {
             <div>
                 <h1>Basic Example</h1>
                 <BasicExample />
+            </div>
+            <div>
+                <h1>Basic Example with Generator</h1>
+                <BasicExampleWithGenerator />
             </div>
             <div>
                 <h1>Patch Effect Example</h1>

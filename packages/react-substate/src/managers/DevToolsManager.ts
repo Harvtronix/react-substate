@@ -1,3 +1,4 @@
+import {log} from '../Debug.js'
 import {
   Actions,
   DevTools,
@@ -25,6 +26,7 @@ function setDevToolsEnabled (isEnabled: boolean) {
     const w = typeof window !== 'undefined' ? (window as any) : null
 
     const interval = setInterval(() => {
+      log('Attempting to connect to redux devtools...')
       devTools = w?.__REDUX_DEVTOOLS_EXTENSION__?.connect()
 
       if (!devTools) {
@@ -33,6 +35,7 @@ function setDevToolsEnabled (isEnabled: boolean) {
 
       clearInterval(interval)
 
+      log('Connected to redux devtools!')
       devTools.init(transformState(substates))
     }, 3000)
   }
