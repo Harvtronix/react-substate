@@ -26,15 +26,15 @@ const actions = {
   )
 }
 
-// Use it like you would `useReducer` or `useState`
+// Use it (mostly) like you would `useReducer` or `useState`
 const BasicExample = () => {
-  const [test, dispatch] = useSubstate(substates.test)
+  const test = useSubstate(substates.test)
 
   return (
     <button
-      onClick={() => (dispatch(actions.updateSomeField, 'the new state'))}
+      onClick={() => (test.dispatch(actions.updateSomeField, 'wow-some-stuff'))}
     >
-      {test.someField}
+      {test.current.someField}
     </button>
   )
 }

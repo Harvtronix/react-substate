@@ -24,9 +24,9 @@ const actions = {
   )
 }
 
-// Use it like you would `useReducer` or `useState`
+// Use it similarly to how you would `useReducer` or `useState`
 const DispatchOnlyExample = () => {
-  const dispatch = useDispatch(substates.test)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     console.log('I will only render this one time!') // This will only ever be called one time
@@ -34,7 +34,7 @@ const DispatchOnlyExample = () => {
 
   return (
     <button
-      onClick={() => (dispatch(actions.updateButtonText, 'the new state'))}
+      onClick={() => (dispatch(substates.test, actions.updateButtonText, 'the new state'))}
     >
       the button
     </button>

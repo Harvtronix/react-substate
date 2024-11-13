@@ -1,30 +1,39 @@
-import {useEffect, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 
 import {log} from '../Debug.js'
-import {Dispatcher, SubstateKey} from '../Interfaces.js'
+import {dispatch} from '../dispatch.js'
+import {ActionKey, Dispatcher, SubstateKey} from '../Interfaces.js'
 import {
   getSubstate,
   hasSubstate,
   registerListener,
   unregisterListener
 } from '../managers/SubstateManager.js'
-import {useDispatch} from './useDispatch.js'
 
 /**
  * Hook that allows a component to listen for changes to a substate and receive a reference to a
  * dispatch function that can be called to update that substate.
  *
- * @param {SubstateKey<*>} substateKey The key of the substate to return. The returned dispatch
+ * @param substateKey The key of the substate to return. The returned dispatch
  * function will be scoped to this substate as well.
- * @returns {Array} Array whose `0` index is the current value of the substate and whose `1` index
- * is a dispatch function that can be called to update the substate.
+ * @returns Object containing the current value of the Substate and a dispatch function that can be
+ * called to update it.
  */
-export function useSubstate <Type> (substateKey: SubstateKey<Type>): [Type, Dispatcher] {
+export function useSubstate <Type> (
+  substateKey: SubstateKey<Type>
+): {current: Type, dispatch: Dispatcher} {
   if (!hasSubstate(substateKey)) {
     throw new Error('No substate found with key ' + substateKey)
   }
 
-  const dispatch = useDispatch(substateKey)
+  // Since we are creating a function in this hook, memoize it so it remains the same across
+  // re-renders
+  const substateDispatch: Dispatcher = useCallback(
+    <Payload>(actionKey: ActionKey<Payload>, payload: Payload) => (
+      dispatch(substateKey, actionKey, payload)
+    ),
+    [substateKey]
+  )
 
   const [, setState] = useState()
 
@@ -38,8 +47,8 @@ export function useSubstate <Type> (substateKey: SubstateKey<Type>): [Type, Disp
     }
   }, [substateKey, setState])
 
-  return [
-    getSubstate(substateKey),
-    dispatch
-  ]
+  return {
+    current: getSubstate(substateKey),
+    dispatch: substateDispatch
+  }
 }

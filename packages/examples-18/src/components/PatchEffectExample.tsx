@@ -36,8 +36,8 @@ const actions = {
 }
 
 const PatchEffectExample = () => {
-  const [test, testDispatch] = useSubstate(substates.test)
-  const anotherTestDispatch = useDispatch(substates.anotherTest)
+  const test = useSubstate(substates.test)
+  const dispatch = useDispatch()
 
   // Create a patch effect for a single substate
   usePatchEffect((patches) => {
@@ -55,15 +55,15 @@ const PatchEffectExample = () => {
     <>
       <button
         onClick={() => (
-          testDispatch(actions.test.updateButtonText, 'the new state')
+          test.dispatch(actions.test.updateButtonText, 'the new state')
         )}
       >
-        {test.field1}
+        {test.current.field1}
       </button>
 
       <button
         onClick={() => (
-          anotherTestDispatch(actions.anotherTest.updateOtherButtonText, 'baz')
+          dispatch(substates.anotherTest, actions.anotherTest.updateOtherButtonText, 'baz')
         )}
       >
         Dispatch action to update "anotherTest"

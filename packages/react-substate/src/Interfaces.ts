@@ -1,6 +1,5 @@
-interface ActionStateModifier<Draft = any, Payload = any> {
-  (draft: Draft, payload: Payload): Draft | void
-}
+type ActionStateModifier<Draft = any, Payload = any> =
+  (draft: Draft, payload: Payload) => Draft | void
 
 interface Actions {
   [key: string]: ActionStateModifier
@@ -11,9 +10,7 @@ interface ActionKey<Payload> {
   __payload: () => Payload
 }
 
-interface PatchEffectFunction {
-  (patches: Array<any>): void
-}
+type PatchEffectFunction = (patches: Array<any>) => void
 
 interface Substates {
   [key: string]: {
@@ -28,20 +25,18 @@ interface SubstateKey<Type> {
   __type: () => Type
 }
 
-interface Dispatcher {
-  <Payload>(
-    actionKey: ActionKey<Payload>,
-    payload: ReturnType<typeof actionKey['__payload']>
-  ): void
-}
+type Dispatcher =
+  <Key extends ActionKey<unknown>>(
+    actionKey: Key,
+    payload: ReturnType<Key['__payload']>
+  ) => void
 
-interface GlobalDispatcher{
-  <Payload>(
-    substateKey: SubstateKey<unknown>,
-    actionKey: ActionKey<Payload>,
-    payload: ReturnType<typeof actionKey['__payload']>
-  ): void
-}
+type GenericDispatcher =
+  <SKey extends SubstateKey<unknown>, AKey extends ActionKey<unknown>>(
+    substateKey: SKey,
+    actionKey: AKey,
+    payload: ReturnType<AKey['__payload']>
+  ) => void
 
 interface DevToolsState {
   [key: string]: {
@@ -71,7 +66,7 @@ export type {
   DevToolsOperation,
   DevToolsState,
   Dispatcher,
-  GlobalDispatcher,
+  GenericDispatcher,
   PatchEffectFunction,
   Substates,
   SubstateKey

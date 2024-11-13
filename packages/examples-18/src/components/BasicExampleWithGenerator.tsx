@@ -8,7 +8,7 @@ interface Test {
   someField: string
 }
 
-// Set up a substate
+// Set up a substate by passing a state generator function to seed the Substate
 const substates = {
   test: createSubstate<Test>(() => ({someField: 'it is generated!'})),
 }
@@ -22,15 +22,15 @@ const actions = {
   )
 }
 
-// Use it like you would `useReducer` or `useState`
+// Use the hook to get the current state data and dispatch actions
 const BasicExampleWithGenerator = () => {
-  const [test, dispatch] = useSubstate(substates.test)
+  const test = useSubstate(substates.test)
 
   return (
     <button
-      onClick={() => (dispatch(actions.updateSomeField, 'not anymore!'))}
+      onClick={() => (test.dispatch(actions.updateSomeField, 'not anymore!'))}
     >
-      {test.someField}
+      {test.current.someField}
     </button>
   )
 }

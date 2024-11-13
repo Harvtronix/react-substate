@@ -35,6 +35,8 @@
         }
       }
     ],
+    "jsdoc/require-param-type": "off",
+    "jsdoc/require-returns-type": "off",
     "max-len": ["warn", 100],
     "no-undef": "off",
     "no-unused-vars": "off",

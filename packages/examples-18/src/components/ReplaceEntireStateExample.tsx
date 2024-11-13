@@ -19,13 +19,13 @@ const actions = {
 }
 
 const ReplaceEntireStateExample = () => {
-  const [test, dispatch] = useSubstate(substates.test)
+  const test = useSubstate(substates.test)
 
   return (
     <button
-      onClick={() => (dispatch(actions.updateButtonText, 'after'))}
+      onClick={() => (test.dispatch(actions.updateButtonText, 'after'))}
     >
-      {test}
+      {test.current}
     </button>
   )
 }
