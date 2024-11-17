@@ -1,30 +1,73 @@
 {
-  "name": "react-substate-monorepo",
-  "version": "0.1.0",
-  "private": true,
-  "description": "React Substate Monorepo",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --ext .ts,.tsx,.js,.jsx --max-warnings 0 ."
-  },
+  "name": "react-substate",
   "author": "Harvtronix",
+  "version": "5.3.3",
   "license": "MIT",
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
-    "@typescript-eslint/parser": "^5.62.0",
-    "eslint": "^8.57.1",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.30.0",
-    "eslint-plugin-jsdoc": "^39.9.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.6.0",
-    "eslint-plugin-react": "^7.36.1",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint-plugin-standard": "^4.1.0",
-    "npm-check-updates": "^16.14.20"
+  "description": "Blazing-fast, centralized state management with auto-guaranteed, immutable state changes",
+  "keywords": [
+    "react",
+    "state",
+    "state management",
+    "immer",
+    "hooks",
+    "redux"
+  ],
+  "bugs": {
+    "url": "https://github.com/Harvtronix/react-substate/issues"
   },
-  "workspaces": [
-    "packages/react-substate",
-    "packages/examples-18"
-  ]
+  "homepage": "https://github.com/Harvtronix/react-substate#readme",
+  "type": "module",
+  "module": "./dist/main/mjs/index.js",
+  "exports": {
+    "types": "./dist/main/mjs/index.d.ts",
+    "import": "./dist/main/mjs/index.js",
+    "require": "./dist/main/cjs/index.js"
+  },
+  "files": [
+    "dist/cjs/main/*",
+    "dist/mjs/main/*"
+  ],
+  "scripts": {
+    "build": "npm-run-all clean build:mjs build:cjs",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:mjs": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "rimraf dist",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "lint": "eslint --max-warnings 0 .",
+    "lint:fix": "eslint --fix --max-warnings 0 .",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest --coverage"
+  },
+  "devDependencies": {
+    "@eslint/js": "^8.57.1",
+    "@types/react": "^18.3.7",
+    "@types/react-dom": "^18.3.0",
+    "@vitest/coverage-v8": "^2.1.5",
+    "eslint": "^8.57.1",
+    "eslint-plugin-jsdoc": "^50.5.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-vitest": "^0.5.4",
+    "globals": "^15.12.0",
+    "nodemon": "^2.0.22",
+    "npm-check-updates": "^16.14.20",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.3.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.14.0",
+    "vitest": "^2.1.5"
+  },
+  "peerDependencies": {
+    "react": ">=16.14",
+    "react-dom": ">=16.14"
+  },
+  "dependencies": {
+    "immer": "^9.0.21"
+  }
 }

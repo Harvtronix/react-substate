@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node 🏗️
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 20.x
           registry-url: https://registry.npmjs.org/
           cache: npm
 
@@ -23,9 +23,9 @@ jobs:
         run: npm install
 
       - name: Build 🔨
-        run: npm --workspace packages/react-substate run build
+        run: npm run build
 
       - name: Publish 🚀
-        run: npm --workspace packages/react-substate publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
