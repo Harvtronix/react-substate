@@ -11,7 +11,6 @@ export default {
   createSubstate,
   setDebugEnabled,
   setDevToolsEnabled,
-
   useDispatch,
   useSubstate
 }
