@@ -43,20 +43,28 @@ export default [
       'react/hook-use-state': 'off',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+      'react/jsx-curly-newline': 'off',
+      'react/jsx-filename-extension': 'off',
       'react/jsx-indent': 'off',
+      'react/jsx-indent-props': 'off',
       'react/jsx-max-props-per-line': 'off',
+      'react/jsx-no-literals': 'off',
+      'react/jsx-one-expression-per-line': 'off',
       'react/react-in-jsx-scope': 'off',
       'simple-import-sort/imports': 'warn',
       'simple-import-sort/exports': 'warn'
     }
   },
   {
-    files: ['**/*.test.ts'],
+    files: ['**/*.test.{js,mjs,cjs,ts,jsx,tsx}'],
     plugins: {
       vitest: pluginVitest
     },
     rules: {
-      ...pluginVitest.configs.recommended.rules
+      ...pluginVitest.configs.recommended.rules,
+      'jsdoc/require-jsdoc': 'off',
+      'react/jsx-no-bind': 'off',
+      'react/no-multi-comp': 'off'
     }
   }
 ]

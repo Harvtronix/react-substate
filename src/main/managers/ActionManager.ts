@@ -27,4 +27,20 @@ function createAction<Draft, Payload>(
   }
 }
 
-export { createAction }
+/**
+ * Gets an action from the registry in a type-safe and null-safe manner, or throws an exception if
+ * the key does not point to a valid action.
+ * @param actionKey The key of the action to retrieve.
+ * @returns The action.
+ */
+function getAction<Draft, Payload>(actionKey: ActionKey<Draft, Payload>): Action<Draft, Payload> {
+  const action = actions[actionKey.id]
+
+  if (action === undefined) {
+    throw new Error(`Action key ${JSON.stringify(actionKey)} not registered`)
+  }
+
+  return action as Action<Draft, Payload>
+}
+
+export { createAction, getAction }

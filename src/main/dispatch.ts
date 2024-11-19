@@ -1,11 +1,10 @@
 import { produce } from 'immer'
 
 import { log } from './Debug.js'
-import { GenericDispatcher } from './Interfaces.js'
+import { ActionKey, GenericDispatcher, SubstateKey } from './Interfaces.js'
+import { getAction } from './managers/ActionManager.js'
 import { updateDevTools } from './managers/DevToolsManager.js'
-import { handlePatchesProduced, isPatchingEnabled } from './managers/PatchManager.js'
 import { getSubstate } from './managers/SubstateManager.js'
-import { actions } from './Registry.js'
 
 /**
  * This function is basically the whole point of this node module.
@@ -18,31 +17,26 @@ import { actions } from './Registry.js'
  * @param actionKey The action to dispatch.
  * @param payload The data to pass to the action handler function.
  */
-export const dispatch: GenericDispatcher = (substateKey, actionKey, payload) => {
+export const dispatch: GenericDispatcher = <
+  SubstateType,
+  ActionDraft extends SubstateType,
+  ActionPayload,
+  ProvidedPayload extends ActionPayload
+>(
+  substateKey: SubstateKey<SubstateType>,
+  actionKey: ActionKey<ActionDraft, ActionPayload>,
+  payload: ProvidedPayload
+) => {
   log(`dispatching action ${actionKey.id} for substate ${substateKey.id}. Payload: ${payload}`)
 
   const substate = getSubstate(substateKey)
+  const action = getAction(actionKey)
 
   // Update the global state via immer
-  // Any is used to prevent infinite type errors, though it is more correctly producing whatever the
-  // type is of the provided substate.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  substate.state = produce<any>(
-    substate.state,
-    (draft) => actions[actionKey.id]?.(draft, payload),
-    // Immer will throw an error if a third arg is passed with patching disabled, so use
-    // `undefined` to make it seem like there's no additional arg
-    isPatchingEnabled()
-      ? (patches) => {
-          handlePatchesProduced(substateKey, patches)
-        }
-      : undefined
-  )
+  substate.state = produce(substate.state, (draft: ActionDraft) => action(draft, payload))
 
   // Notify all substate listeners by calling their setState function
   substate.listeners.forEach((setState) => {
-    // TODO: does setting the state to the actual state matter? Could it be any value?
-    // Could it be the same value multiple times in a row?
     setState(substate.state)
   })
 
