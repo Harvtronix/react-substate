@@ -10,7 +10,6 @@
 [![CI](https://github.com/Harvtronix/react-substate/workflows/CI/badge.svg)](https://github.com/Harvtronix/react-substate/actions?query=workflow%3ACI)
 ![Publish to NPM](https://github.com/Harvtronix/react-substate/workflows/Publish%20to%20NPM/badge.svg)
 
-
 ## Install
 
 ```bash
@@ -20,25 +19,19 @@ npm install react-substate [react react-dom]
 ## Basic Example
 
 ```jsx
-import {
-  createSubstate,
-  createAction,
-  useSubstate
-} from 'react-substate'
+import { createSubstate, createAction, useSubstate } from 'react-substate'
 
 // Set up some sub-states
 const substates = {
-  test: createSubstate({someField: 'the state'}),
-  anotherTest: createSubstate(() => ({foo: 'bar'})) // Use a generator function
+  test: createSubstate({ someField: 'the state' }),
+  anotherTest: createSubstate(() => ({ foo: 'bar' })) // Use a generator function
 }
 
 // Set up some dispatchable actions
 const actions = {
-  updateSomeField: createAction(
-    (draft, payload) => {
-      draft.someField = payload // Will become "the new state"
-    }
-  )
+  updateSomeField: createAction((draft, payload) => {
+    draft.someField = payload // Will become "the new state"
+  })
 }
 
 // Use it like you would `useReducer` or `useState`
@@ -46,9 +39,7 @@ const BasicExample = () => {
   const [test, dispatch] = useSubstate(substates.test)
 
   return (
-    <button
-      onClick={() => (dispatch(actions.updateSomeField, 'the new state'))}
-    >
+    <button onClick={() => dispatch(actions.updateSomeField, 'the new state')}>
       {test.someField}
     </button>
   )
@@ -56,33 +47,39 @@ const BasicExample = () => {
 ```
 
 ## 🌟 New! React Substate now supports Redux DevTools
+
 If you have the Redux DevTools extension installed in your browser, you'll be able to see changes driven by substate creations and action dispatches as they happen over time. The support is somewhat limited for now, but will only get better with time!
 
 ## Migrating from 3.x to 4.x
+
 The 4.0 release includes breaking changes, but improves the user experience when using the module. It should also be a tiny bit faster because of some clever memoization. Here are the details of the change so you can migrate from v3 to v4.
 
 ## Migrating from 4.x to 5.x
+
 The 4.0 release changes two things. The first affects both JS and TS users. The second only affects TS users:
+
 1. Package exports are now defined via the `exports` key in the `package.json` file. In most cases, this will not require any changes to your code. If you do encounter issues, ensure you're not accessing any of the `react-substate` package code via sub-paths. Stick to the named or default exports.
 2. TypeScript types are now stricter for the `createAction` function and payloads being provided to `dispatch`ed actions. Two potential typing errors you will encounter when moving to v5 are:
-    - `'draft' is of type 'unknown'`
-        - To address this issue, provide a type for the first parameter (`draft`) of `createAction`.
-    - `'payload' is of type 'unknown'`
-        - To address this issue, provide a type for the second parameter (`payload`) of `createAction`.
-        - Note that adding a type to the `payload` parameter will require dispatches of the action to adhere to this type.
+   - `'draft' is of type 'unknown'`
+     - To address this issue, provide a type for the first parameter (`draft`) of `createAction`.
+   - `'payload' is of type 'unknown'`
+     - To address this issue, provide a type for the second parameter (`payload`) of `createAction`.
+     - Note that adding a type to the `payload` parameter will require dispatches of the action to adhere to this type.
 
 ### Changes
+
 - Reworked `createAction` to not take a substate key as input. The mapping between a substate and a `dispatch` function is now handled when invoking the `useSubstate` or `useDispatch` hooks.
 - `Substate.create` is now either `createSubstate` or `Substate.createSubstate`.
 - `useDispatch` now creates/returns a memoized, curried function that is automatically linked to to the provided substate.
 - `useSubstate` now internally uses `useDispatch` to obtain the dispatch function. This means less overall code and more efficiency.
 - All module exports are now exposed to consumers through both the default export and named exports.
 
-
 # Intro
+
 React Substate boils down to three main parts:
 
 ## Substates
+
 This is how you store your application state. You can create new substates wherever you want, but it is recommended to define them all in the same file.
 
 Substates are inexpensive, so you have the freedom to define them based on how you'd like to trigger re-renders within your application.
@@ -92,18 +89,20 @@ Few, large substates will lead to heavier and more frequent re-renders, but can 
 Many, small substates generally leads to better-designed applications with fewer re-renders. The disadvantage of this approach is some additional legwork to adequately divide your application state into substates.
 
 ## Actions
+
 Like other action/dispatch-driven frameworks, React Substate requires that state be updated through discrete actions previously registered with the framework. These actions can be created/registered at any time, but it is advisable to define them up front and all together in their own file(s).
 
-What sets React Substate apart from other state management libraries is that every single action you create is automatically passed through *Immer* to ensure that no matter how you manipulate your state from inside your actions, the result is always an **immutable** state change. Plus, *Immer* makes the syntax super clean.
+What sets React Substate apart from other state management libraries is that every single action you create is automatically passed through _Immer_ to ensure that no matter how you manipulate your state from inside your actions, the result is always an **immutable** state change. Plus, _Immer_ makes the syntax super clean.
 
 An action can be used to update any substate. You have the flexibility to choose whether to write general-purpose actions that can apply to multiple different subsates (based on their structure) or very specific actions that only make sense when called against a single substate. It is often easier to debug an application when the actions are specific and discrete, but this is not required by the framework. For example, a single, giant action called `doUpdate` with a bunch of conditionals in it is most likely a terrible idea.
 
 Actions you create can later be passed to a `dispatch` function to cause your substates to change, and ultimately your components to re-render. `dispatch` takes an action and a payload as arguments. The payload can be anything you might need to calculate the new state from inside your action.
 
 ## Hooks
+
 React Substate's Hooks are what give you access to your state and changes to that state. A component can use as many `useSubstate` hooks as needed to obtain the data it needs to render. Both `useSubstate` and `useDispatch` will give you a reference to the `dispatch` function that can be used to update a particular substate (the one provided as an argument to the hook).
 
-In addition to `useSubstate` and `useDispatch`, there's another hook called `usePatchEffect`. This hook allows you to register to receive every patch generated by *Immer* as your application state changes. Each patch effect can be scoped to one particular substate, many substates, or the entire substate registry.
+In addition to `useSubstate` and `useDispatch`, there's another hook called `usePatchEffect`. This hook allows you to register to receive every patch generated by _Immer_ as your application state changes. Each patch effect can be scoped to one particular substate, many substates, or the entire substate registry.
 
 # Examples
 
@@ -119,24 +118,20 @@ import {
 } from 'react-substate'
 
 const substates = {
-  test: createSubstate({field1: 'the state'}),
-  anotherTest: createSubstate({foo: 'bar'})
+  test: createSubstate({ field1: 'the state' }),
+  anotherTest: createSubstate({ foo: 'bar' })
 }
 
 const actions = {
   test: {
-    updateButtonText: createAction(
-      (draft, payload) => {
-        draft.field1 = payload // Will become "the new state"
-      }
-    )
+    updateButtonText: createAction((draft, payload) => {
+      draft.field1 = payload // Will become "the new state"
+    })
   },
   anotherTest: {
-    updateOtherButtonText: createAction(
-      (draft, payload) => {
-        draft.foo = payload // Will become "baz"
-      }
-    )
+    updateOtherButtonText: createAction((draft, payload) => {
+      draft.foo = payload // Will become "baz"
+    })
   }
 }
 
@@ -158,19 +153,11 @@ export const PatchEffectExample = () => {
 
   return (
     <>
-      <button
-        onClick={() => (
-          testDispatch(actions.test.updateButtonText, 'the new state')
-        )}
-      >
+      <button onClick={() => testDispatch(actions.test.updateButtonText, 'the new state')}>
         {test.field1}
       </button>
 
-      <button
-        onClick={() => (
-          anotherTestDispatch(actions.anotherTest.updateOtherButtonText, 'baz')
-        )}
-      >
+      <button onClick={() => anotherTestDispatch(actions.anotherTest.updateOtherButtonText, 'baz')}>
         Dispatch action to update "anotherTest"
       </button>
     </>
@@ -179,6 +166,7 @@ export const PatchEffectExample = () => {
 ```
 
 ## Basic TypeScript example
+
 ```tsx
 import {
   createSubstate,
@@ -226,6 +214,7 @@ export const BasicExample = () => {
 # API Reference
 
 ## Functions
+
 `createSubstate`
 Creates and registers a new substate with the given initial data. Returns an identifier for the substate.
 
@@ -239,6 +228,7 @@ Turns on/off logging of debug statements to the Javascript console.
 Turns on/off logging of substate changes to the DevTools browser extension.
 
 ## Hooks
+
 `useSubstate`
 Hook that allows a component to listen for changes to a substate and receive a reference to a dispatch function that can be called to update that substate.
 
@@ -252,7 +242,9 @@ Hook that allows a component to receive a reference to a dispatch function that 
 Hook that allows a component to receive patches each time a substate is updated.
 
 # Peer Dependencies
+
 This module has peer dependencies on:
+
 - `react` version 16.14 (with hooks support) or higher.
 - `react-dom` version 16 or higher.
 
