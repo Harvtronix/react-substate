@@ -46,8 +46,7 @@ function transformState(substates: Substates): DevToolsState {
   Object.entries(substates).forEach(([key, substate]) => {
     result[key] = {
       listeners: substate.listeners.length ?? -1,
-      patchEffects: substate.patchEffects.length ?? -1,
-      state: substate.state
+      current: substate.current
     }
   })
 

@@ -1,7 +1,7 @@
 interface Substate<Type> {
   listeners: Array<(...args: unknown[]) => void>
-  patchEffects: Array<PatchEffectFunction>
-  state: Type
+  current: Type
+  dispatch: Dispatcher<Type>
 }
 
 type Substates = Record<string, Substate<unknown>>
@@ -41,13 +41,10 @@ type GenericDispatcher = <
   payload: ProvidedPayload
 ) => void
 
-type PatchEffectFunction = (patches: Array<unknown>) => void
-
 interface DevToolsState {
   [key: string]: {
     listeners: number
-    patchEffects: number
-    state: unknown
+    current: unknown
   }
 }
 
@@ -70,7 +67,6 @@ export type {
   DevToolsState,
   Dispatcher,
   GenericDispatcher,
-  PatchEffectFunction,
   Substate,
   SubstateKey,
   Substates

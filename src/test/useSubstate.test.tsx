@@ -5,9 +5,11 @@ import { userEvent } from '@testing-library/user-event'
 import * as React from 'react'
 import { describe, it } from 'vitest'
 
-import { createAction, createSubstate, useSubstate } from '../main/index.js'
+import { createAction, createSubstate, setDebugEnabled, useSubstate } from '../main/index.js'
 
 describe('useSubstate', () => {
+  setDebugEnabled(true)
+
   it('reports the state', ({ expect }) => {
     const substate = createSubstate('this is a test')
 

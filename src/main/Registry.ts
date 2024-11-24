@@ -1,4 +1,4 @@
-import { Actions, PatchEffectFunction, Substates } from './Interfaces.js'
+import { Actions, Substates } from './Interfaces.js'
 
 //
 // Objects
@@ -8,11 +8,6 @@ import { Actions, PatchEffectFunction, Substates } from './Interfaces.js'
  * Global actions registry for all substates.
  */
 const actions: Actions = {}
-
-/**
- * Global registry of all patch effects.
- */
-const patchEffects: Array<PatchEffectFunction> = []
 
 /**
  * Global registry of all substates.
@@ -38,17 +33,17 @@ let substateKeyIdCounter = 0
 //
 
 /**
- * @returns A new, unique action key.
+ * @returns A new, unique Action id.
  */
-function createActionKey(): keyof Actions {
+function createActionId(): keyof Actions {
   return String(++actionKeyCounter)
 }
 
 /**
- * @returns A new, unique substate key.
+ * @returns A new, unique Substate id.
  */
-function createSubstateKeyId(): keyof Substates {
+function createSubstateId(): keyof Substates {
   return String(++substateKeyIdCounter)
 }
 
-export { actions, createActionKey, createSubstateKeyId, patchEffects, substates }
+export { actions, createActionId, createSubstateId, substates }

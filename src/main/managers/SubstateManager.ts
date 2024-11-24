@@ -1,5 +1,6 @@
+import { dispatch } from '../dispatch.js'
 import { Substate, SubstateKey } from '../Interfaces.js'
-import { createSubstateKeyId, substates } from '../Registry.js'
+import { createSubstateId, substates } from '../Registry.js'
 import { updateDevTools } from './DevToolsManager.js'
 
 /**
@@ -9,26 +10,28 @@ import { updateDevTools } from './DevToolsManager.js'
  * @returns Identifier used to later reference this substate.
  */
 function createSubstate<Type>(initialData: Type | (() => Type)): SubstateKey<Type> {
-  const substateKey = createSubstateKeyId()
+  const substateId = createSubstateId()
 
-  // Create and register the actual substate
-  const substate = {
-    listeners: [],
-    patchEffects: [],
-    state: initialData instanceof Function ? initialData() : initialData
+  const substateKey = {
+    id: substateId,
+    /**
+     * TypeScript typing function to provide access to the type of the Substate.
+     */
+    __type: null as Type
   }
-  substates[substateKey] = substate
+
+  // Create and register the actual Substate
+  const substate: Substate<Type> = {
+    listeners: [],
+    current: initialData instanceof Function ? initialData() : initialData,
+    dispatch: (actionKey, payload) => dispatch(substateKey, actionKey, payload)
+  }
+  substates[substateId] = substate
 
   // Notify the DevTools
   updateDevTools('Create Substate')
 
-  return {
-    id: substateKey,
-    /**
-     * TypeScript typing function to provide access to the type of the substate.
-     */
-    __type: null as Type
-  }
+  return substateKey
 }
 
 /**

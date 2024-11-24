@@ -1,5 +1,5 @@
 import { Action, ActionKey } from '../Interfaces.js'
-import { actions, createActionKey } from '../Registry.js'
+import { actions, createActionId } from '../Registry.js'
 
 /**
  * Registers a new dispatchable action to modify a substate.
@@ -10,12 +10,12 @@ import { actions, createActionKey } from '../Registry.js'
 function createAction<Draft, Payload>(
   stateModifier: Action<Draft, Payload>
 ): ActionKey<Draft, Payload> {
-  const actionKey = createActionKey()
+  const actionId = createActionId()
 
-  actions[actionKey] = stateModifier as Action<unknown, unknown>
+  actions[actionId] = stateModifier as Action<unknown, unknown>
 
   return {
-    id: actionKey,
+    id: actionId,
     /**
      * Internal property to provide access to the type information of the Draft.
      */
