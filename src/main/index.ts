@@ -14,7 +14,7 @@ setAutoFreeze(false)
 /**
  * Functions that allow additional configuration of the underlying Immer engine.
  */
-const Immer = {
+const ImmerConfig = {
   enableMapSet,
   enablePatches,
   setAutoFreeze,
@@ -28,13 +28,13 @@ export default {
   setDevToolsEnabled,
   useDispatch,
   useSubstate,
-  Immer
+  ImmerConfig
 }
 
 export {
   createAction,
   createSubstate,
-  Immer,
+  ImmerConfig,
   setDebugEnabled,
   setDevToolsEnabled,
   useDispatch,

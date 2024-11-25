@@ -315,6 +315,23 @@ Hook that allows a component to listen for changes to a Substate and receive a r
 
 Hook that returns a reference to a dispatch function that can be called to update any provided Substate without also listening for changes to any Substates.
 
+## Configuration
+
+### `ImmerConfig`
+
+React Substate uses Immer under the covers to ensure state changes happen in an immutable way. Immer is left at its default behavior except for one exception: Auto-freezing is turned off by default to speed up performance.
+
+If you want to turn this back on or configure any other aspects of Immer in your application, you can use the exported functions like so:
+
+```tsx
+import { ImmerConfig } from 'react-substate'
+
+ImmerConfig.setAutoFreeze(true)
+ImmerConfig.useMapSet(true)
+
+// etc.
+```
+
 # Peer Dependencies
 
 This module has peer dependencies on:
