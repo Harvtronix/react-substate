@@ -4,7 +4,7 @@
 
 [![Package Name](https://img.shields.io/badge/pkg%20name-react--substate-blueviolet)](https://www.npmjs.com/package/react-substate)
 [![NPM Version](https://img.shields.io/npm/v/react-substate.svg)](https://www.npmjs.com/package/react-substate)
-![Minified and Zipped Size is 4.36 kB](https://img.shields.io/badge/minified%2Bzipped-4.36%20kB-brightgreen)
+![Minified and Zipped Size is 5.58 kB](https://img.shields.io/badge/minified%2Bzipped-5.58%20kB-brightgreen)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-orange.svg)](https://standardjs.com)
 [![License](https://img.shields.io/npm/l/react-substate?color=orange)](https://github.com/Harvtronix/react-substate/blob/main/LICENSE)
 [![CI](https://github.com/Harvtronix/react-substate/workflows/CI/badge.svg)](https://github.com/Harvtronix/react-substate/actions?query=workflow%3ACI)
