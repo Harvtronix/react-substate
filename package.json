@@ -32,7 +32,7 @@
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:mjs": "tsc",
     "build:watch": "tsc --watch",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist .test-coverage",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "lint": "eslint --max-warnings 0 .",
@@ -45,8 +45,8 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
-    "@types/react": "^18.3.7",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "@vitest/coverage-v8": "^2.1.5",
     "eslint": "^8.57.1",
     "eslint-plugin-jsdoc": "^50.5.0",
@@ -56,15 +56,14 @@
     "eslint-plugin-vitest": "^0.5.4",
     "globals": "^15.12.0",
     "jsdom": "^25.0.1",
-    "nodemon": "^2.0.22",
-    "npm-check-updates": "^16.14.20",
+    "npm-check-updates": "^17.1.11",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "rimraf": "^3.0.2",
-    "typescript": "^5.6.3",
-    "typescript-eslint": "^8.14.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.15.0",
     "vitest": "^2.1.5"
   },
   "peerDependencies": {
@@ -72,6 +71,6 @@
     "react-dom": ">=16.14"
   },
   "dependencies": {
-    "immer": "^9.0.21"
+    "immer": "^10.1.1"
   }
 }
