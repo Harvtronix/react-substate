@@ -30,7 +30,7 @@
   "scripts": {
     "build": "npm-run-all clean build:mjs build:cjs",
     "build:cjs": "tsc --project tsconfig.cjs.json",
-    "build:mjs": "tsc",
+    "build:mjs": "tsc --project tsconfig.mjs.json",
     "build:watch": "tsc --watch",
     "clean": "rimraf dist .test-coverage",
     "format": "prettier --check .",
