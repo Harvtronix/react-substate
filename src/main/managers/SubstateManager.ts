@@ -15,7 +15,7 @@ function createSubstate<Type>(initialData: Type | (() => Type)): SubstateKey<Typ
   const substateKey = {
     id: substateId,
     /**
-     * TypeScript typing function to provide access to the type of the Substate.
+     * Internal property that provides access to the type of the Substate.
      */
     __type: null as Type
   }

@@ -18,7 +18,7 @@ export function useSubstate<Type>(substateKey: SubstateKey<Type>): {
   current: Type
   dispatch: Dispatcher<Type>
 } {
-  const returnVal = useMemo(() => {
+  const substate = useMemo(() => {
     return getSubstate(substateKey)
   }, [substateKey])
 
@@ -34,5 +34,5 @@ export function useSubstate<Type>(substateKey: SubstateKey<Type>): {
     }
   }, [substateKey])
 
-  return returnVal
+  return substate
 }

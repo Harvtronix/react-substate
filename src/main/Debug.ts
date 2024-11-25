@@ -14,7 +14,7 @@ function log(val: unknown) {
 }
 
 /**
- * Turns on/off logging of debug statements to the Javascript console.
+ * Turns on/off logging of debug statements to the JavaScript console.
  * @param isEnabled Indicates whether or not to turn on debug logging to the javascript
  * console.
  */

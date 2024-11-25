@@ -2,17 +2,15 @@ import { Action, ActionKey } from '../Interfaces.js'
 import { actions, createActionId } from '../Registry.js'
 
 /**
- * Registers a new dispatchable action to modify a substate.
- * @param stateModifier Handler function that is called to modify the state during a dispatch of
- * this action.
- * @returns Identifier used to later reference this action when calling dispatch.
+ * Registers a new dispatchable action to modify a Substate.
+ * @param producer Function that is called during a dispatch that "produces" a new value for a
+ * Substate by either modifying the `draft` or returning a new value.
+ * @returns Identifier used to later reference this Action when calling dispatch.
  */
-function createAction<Draft, Payload>(
-  stateModifier: Action<Draft, Payload>
-): ActionKey<Draft, Payload> {
+function createAction<Draft, Payload>(producer: Action<Draft, Payload>): ActionKey<Draft, Payload> {
   const actionId = createActionId()
 
-  actions[actionId] = stateModifier as Action<unknown, unknown>
+  actions[actionId] = producer as Action<unknown, unknown>
 
   return {
     id: actionId,
