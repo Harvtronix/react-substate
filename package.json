@@ -17,11 +17,11 @@
   },
   "homepage": "https://github.com/Harvtronix/react-substate#readme",
   "type": "module",
-  "module": "./dist/main/mjs/index.js",
+  "module": "./dist/mjs/main/index.js",
   "exports": {
-    "types": "./dist/main/mjs/index.d.ts",
-    "import": "./dist/main/mjs/index.js",
-    "require": "./dist/main/cjs/index.js"
+    "types": "./dist/mjs/main/index.d.ts",
+    "import": "./dist/mjs/main/index.js",
+    "require": "./dist/cjs/main/index.js"
   },
   "files": [
     "dist/cjs/main/*",
