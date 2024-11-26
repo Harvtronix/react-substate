@@ -20,7 +20,7 @@ describe('useDispatch', () => {
 
       return (
         <button onClick={() => dispatch(substate, action, 'hello world')} type="button">
-          {s.current.key}
+          {s.value.key}
         </button>
       )
     }
@@ -44,7 +44,7 @@ describe('useDispatch', () => {
 
       return (
         <button onClick={() => dispatch(substate, action, 'hello world')} type="button">
-          {s.current}
+          {s.value}
         </button>
       )
     }

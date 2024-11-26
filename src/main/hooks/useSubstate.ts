@@ -15,7 +15,7 @@ import { getSubstate, registerListener, unregisterListener } from '../managers/S
  * called to update it.
  */
 export function useSubstate<Type>(substateKey: SubstateKey<Type>): {
-  current: Type
+  value: Type
   dispatch: Dispatcher<Type>
 } {
   const substate = useMemo(() => {

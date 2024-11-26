@@ -42,7 +42,7 @@ export const Component = () => {
     test.dispatch(actions.updateSomeField, 'the new state') // works
   }, [])
 
-  return <button onClick={handleClick}>{test.current.someField}</button>
+  return <button onClick={handleClick}>{test.value.someField}</button>
 }
 ```
 
@@ -77,7 +77,7 @@ const test = useSubstate(substates.test)
 To get the current value of a substate, use:
 
 ```jsx
-test.current
+test.value
 ```
 
 And to get the Substate-specific dispatch function, use:
@@ -86,7 +86,7 @@ And to get the Substate-specific dispatch function, use:
 test.dispatch(...)
 ```
 
-If you really want to still destructure these into `{current: test, dispatch}` you can, however this is not the recommended approach.
+If you still really want to destructure these into `{value: test, dispatch: testDispatch}` you can, however this is not the recommended approach.
 
 ### `useGlobalDispatch`
 
@@ -140,7 +140,7 @@ Actions you create can later be passed to a `dispatch` function to cause your Su
 
 React Substate's Hooks are what give you access to your state and changes to that state. A component can use as many `useSubstate` hooks as needed to obtain the data it needs to render.
 
-In addition to giving back the `current` value of a Substate, `useSubstate` returns a `dispatch` function that can be called (with an `action` and `payload`) to update the value of that particular Substate.
+In addition to giving back the current `value` of a Substate, `useSubstate` returns a `dispatch` function that can be called (with an `action` and `payload`) to update the value of that particular Substate.
 
 Depending on your preference, you can also opt to use the general-purpose `useDispatch` hook instead of dealing with Substate-specific ones. `useDispatch` returns a function which takes three arguments instead of two: A Substate key, an Action key, and a payload. More on this in the examples below.
 
@@ -185,7 +185,7 @@ export const Component = () => {
   }, [])
 
   return (
-    <button onClick={handleClick}>{test.current.someField}</button>
+    <button onClick={handleClick}>{test.value.someField}</button>
   )
 }
 ```
@@ -229,7 +229,7 @@ export const Component = () => {
 
   return (
     <button onClick={handleClick}>
-      {simple.current.foo} {test.current.someField}
+      {simple.value.foo} {test.value.someField}
     </button>
   )
 }
@@ -261,7 +261,7 @@ export const Component = () => {
     test.dispatch(actions.resetTest, null)
   }, [])
 
-  return <button onClick={handleClick}>{test.current.someField}</button>
+  return <button onClick={handleClick}>{test.value.someField}</button>
 }
 ```
 
@@ -309,7 +309,7 @@ Turns on/off logging of Substate changes to the Redux DevTools browser extension
 
 ### `useSubstate`
 
-Hook that allows a component to listen for changes to a Substate and receive a reference to a dispatch function that can be called to update that Substate. The return value is an object of the form `{ current: <obj>, dispatch: <fn> }`.
+Hook that allows a component to listen for changes to a Substate and receive a reference to a dispatch function that can be called to update that Substate. The return value is an object of the form `{ value: <obj>, dispatch: <fn> }`.
 
 ### `useDispatch`
 

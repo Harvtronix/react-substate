@@ -16,7 +16,7 @@ describe('useSubstate', () => {
     function Component() {
       const s = useSubstate(substate)
 
-      return <div>{s.current}</div>
+      return <div>{s.value}</div>
     }
 
     const result = render(<Component />)
@@ -35,7 +35,7 @@ describe('useSubstate', () => {
 
       return (
         <button onClick={() => s.dispatch(action, 'hello world')} type="button">
-          {s.current}
+          {s.value}
         </button>
       )
     }
@@ -52,7 +52,7 @@ describe('useSubstate', () => {
       function Component() {
         const s = useSubstate({ id: '-1', __type: null })
 
-        return <div>{s.current}</div>
+        return <div>{s.value}</div>
       }
 
       expect(() => render(<Component />)).toThrowError(

@@ -33,11 +33,11 @@ export const dispatch: GenericDispatcher = <
   const action = getAction(actionKey)
 
   // Update the global state via immer
-  substate.current = produce(substate.current, (draft: ActionDraft) => action(draft, payload))
+  substate.value = produce(substate.value, (draft: ActionDraft) => action(draft, payload))
 
   // Notify all substate listeners by calling their setState function
   substate.listeners.forEach((setState) => {
-    setState(substate.current)
+    setState(substate.value)
   })
 
   // Notify the DevTools

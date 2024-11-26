@@ -23,7 +23,7 @@ function createSubstate<Type>(initialData: Type | (() => Type)): SubstateKey<Typ
   // Create and register the actual Substate
   const substate: Substate<Type> = {
     listeners: [],
-    current: initialData instanceof Function ? initialData() : initialData,
+    value: initialData instanceof Function ? initialData() : initialData,
     dispatch: (actionKey, payload) => dispatch(substateKey, actionKey, payload)
   }
   substates[substateId] = substate

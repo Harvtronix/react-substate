@@ -1,6 +1,6 @@
 interface Substate<Type> {
   listeners: Array<(...args: unknown[]) => void>
-  current: Type
+  value: Type
   dispatch: Dispatcher<Type>
 }
 
@@ -44,7 +44,7 @@ type GenericDispatcher = <
 interface DevToolsState {
   [key: string]: {
     listeners: number
-    current: unknown
+    value: unknown
   }
 }
 
